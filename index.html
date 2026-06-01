@@ -1,0 +1,1030 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Felicia's Childcare Service</title>
+  <style>
+    :root {
+      --bg: #f7efe6;
+      --bg-2: #fffaf4;
+      --paper: rgba(255, 252, 247, 0.92);
+      --paper-solid: #fffaf4;
+      --ink: #332114;
+      --soft-ink: #6e5b4c;
+      --muted: #9a8574;
+      --line: #e6d4c3;
+      --line-strong: #d7baa3;
+      --weekend: #d90000;
+      --blue-bg: #dbeafe;
+      --blue-text: #0055d9;
+      --green-bg: #dcfce7;
+      --green-text: #166534;
+      --orange-bg: #ffedd5;
+      --orange-text: #ea580c;
+      --shadow: 0 24px 70px rgba(87, 58, 34, 0.11);
+      --radius-xl: 30px;
+      --radius-lg: 22px;
+      --font-serif: Georgia, "Times New Roman", serif;
+      --font-sans: "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--ink);
+      font-family: var(--font-sans);
+      background:
+        radial-gradient(circle at 10% 7%, rgba(236, 204, 176, 0.55), transparent 28%),
+        radial-gradient(circle at 89% 4%, rgba(255, 245, 229, 0.9), transparent 29%),
+        radial-gradient(circle at 80% 85%, rgba(219, 234, 254, 0.38), transparent 26%),
+        linear-gradient(135deg, #fbf3ea 0%, #fffdf9 48%, #f1e3d5 100%);
+      padding: 28px;
+    }
+
+    .site {
+      width: min(1180px, 100%);
+      margin: 0 auto;
+    }
+
+    .shell {
+      position: relative;
+      overflow: hidden;
+      background: var(--paper);
+      border: 1px solid rgba(215, 186, 163, 0.76);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow);
+      padding: 24px 26px 22px;
+      backdrop-filter: blur(10px);
+    }
+
+    .shell::before,
+    .shell::after {
+      content: "";
+      position: absolute;
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.72;
+    }
+
+    .shell::before {
+      width: 210px;
+      height: 210px;
+      left: -116px;
+      top: -116px;
+      border: 1px solid rgba(174, 122, 84, 0.34);
+      border-radius: 999px;
+      box-shadow: 34px 34px 0 rgba(255, 237, 213, 0.32);
+    }
+
+    .shell::after {
+      right: 20px;
+      top: 92px;
+      width: 120px;
+      height: 150px;
+      background:
+        radial-gradient(circle at 50% 22%, transparent 0 9px, rgba(167, 115, 78, 0.35) 10px 11px, transparent 12px),
+        linear-gradient(64deg, transparent 49%, rgba(167, 115, 78, 0.38) 50%, transparent 51%),
+        linear-gradient(116deg, transparent 49%, rgba(167, 115, 78, 0.26) 50%, transparent 51%);
+      mask: radial-gradient(ellipse at center, black 0 60%, transparent 62%);
+      transform: rotate(-14deg);
+    }
+
+    .topbar,
+    .page,
+    footer { position: relative; z-index: 1; }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      margin-bottom: 10px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+    }
+
+    .brand-mark {
+      width: 42px;
+      height: 42px;
+      display: inline-grid;
+      place-items: center;
+      border-radius: 50%;
+      background: linear-gradient(145deg, #fff7ec, #ecd1b8);
+      border: 1px solid rgba(215, 186, 163, 0.92);
+      font-size: 22px;
+      box-shadow: 0 10px 25px rgba(87, 58, 34, 0.08);
+      flex: 0 0 auto;
+    }
+
+    .brand-text {
+      font-family: var(--font-serif);
+      font-size: 18px;
+      letter-spacing: 0.04em;
+      color: #4a2e19;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .nav button,
+    .lang-toggle button {
+      border: 1px solid var(--line-strong);
+      background: rgba(255, 250, 244, 0.66);
+      color: #4a3324;
+      border-radius: 999px;
+      padding: 9px 15px;
+      font-size: 14px;
+      letter-spacing: 0.02em;
+      cursor: pointer;
+      transition: 0.2s ease;
+      font-family: var(--font-sans);
+    }
+
+    .nav button:hover,
+    .lang-toggle button:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 8px 18px rgba(87, 58, 34, 0.08);
+    }
+
+    .nav button.active,
+    .lang-toggle button.active {
+      background: #4a2e19;
+      border-color: #4a2e19;
+      color: #fffaf4;
+    }
+
+    .page { display: none; }
+    .page.active { display: block; }
+
+    .hero {
+      text-align: center;
+      padding: 12px 20px 18px;
+    }
+
+    h1 {
+      margin: 0;
+      font-family: var(--font-serif);
+      font-size: clamp(31px, 5vw, 54px);
+      line-height: 1.08;
+      font-weight: 600;
+      letter-spacing: 0.025em;
+      color: #3a210f;
+    }
+
+    .subtitle {
+      margin: 14px auto 0;
+      max-width: 820px;
+      color: var(--soft-ink);
+      font-size: clamp(14px, 1.8vw, 17px);
+      line-height: 1.8;
+      letter-spacing: 0.035em;
+    }
+
+    .date-range {
+      margin-top: 6px;
+      font-family: var(--font-serif);
+      font-size: clamp(17px, 2vw, 22px);
+      color: #4c3424;
+      letter-spacing: 0.035em;
+    }
+
+    .decor-line {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 18px;
+      margin: 15px auto 2px;
+      color: #b68d71;
+    }
+
+    .decor-line::before,
+    .decor-line::after {
+      content: "";
+      width: min(150px, 18vw);
+      height: 1px;
+      background: linear-gradient(90deg, transparent, #d7baa3, transparent);
+    }
+
+    .decor-symbol { font-size: 20px; transform: translateY(-1px); }
+
+    .calendar-wrap {
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      background: rgba(255, 255, 255, 0.48);
+      margin-top: 14px;
+    }
+
+    .calendar {
+      display: grid;
+      grid-template-columns: repeat(7, minmax(0, 1fr));
+      width: 100%;
+    }
+
+    .weekday {
+      background: linear-gradient(180deg, rgba(234, 216, 199, 0.86), rgba(247, 236, 225, 0.82));
+      border-right: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      padding: 13px 6px;
+      text-align: center;
+      font-family: var(--font-serif);
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      color: #3d2817;
+    }
+
+    .weekday:nth-child(7) { border-right: 0; }
+
+    .day {
+      min-height: 112px;
+      border-right: 1px solid rgba(234, 216, 199, 0.72);
+      border-bottom: 1px solid rgba(234, 216, 199, 0.72);
+      padding: 14px 8px 12px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.18);
+    }
+
+    .day:nth-child(7n) { border-right: 0; }
+
+    .day-number {
+      font-family: var(--font-serif);
+      font-size: 20px;
+      line-height: 1.1;
+      color: var(--ink);
+      min-height: 24px;
+    }
+
+    .day.is-red .day-number { color: var(--weekend); }
+
+    .slots {
+      width: 100%;
+      margin-top: 18px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 112px;
+      max-width: 100%;
+      min-height: 28px;
+      padding: 4px 13px 5px;
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: 16px;
+      line-height: 1.1;
+      white-space: nowrap;
+    }
+
+    .pill.blue { background: var(--blue-bg); color: var(--blue-text); }
+    .pill.green { background: var(--green-bg); color: var(--green-text); }
+    .pill.orange { background: var(--orange-bg); color: var(--orange-text); }
+
+    .no-availability {
+      font-size: 20px;
+      line-height: 1;
+      color: #111;
+      margin-top: 1px;
+    }
+
+    .state {
+      text-align: center;
+      color: var(--muted);
+      padding: 34px 12px;
+      font-size: 15px;
+    }
+
+    .content-page {
+      padding: 18px 8px 6px;
+    }
+
+    .section-title {
+      text-align: center;
+      margin: 10px auto 22px;
+    }
+
+    .section-title h2 {
+      margin: 0;
+      font-family: var(--font-serif);
+      font-size: clamp(30px, 4.2vw, 48px);
+      font-weight: 600;
+      letter-spacing: 0.025em;
+      color: #3a210f;
+    }
+
+    .section-title p {
+      margin: 10px auto 0;
+      color: var(--soft-ink);
+      line-height: 1.7;
+      max-width: 760px;
+    }
+
+    .resume-card,
+    .gallery-card {
+      background: rgba(255, 255, 255, 0.48);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+    }
+
+    .lang-toggle {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 18px;
+    }
+
+    .resume-version { display: none; }
+    .resume-version.active { display: block; }
+
+    .resume-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      gap: 22px;
+      align-items: start;
+    }
+
+    .profile-block {
+      padding: 20px;
+      border-radius: 18px;
+      background: rgba(255, 250, 244, 0.72);
+      border: 1px solid rgba(230, 212, 195, 0.72);
+    }
+
+    .profile-block h3 {
+      margin: 0 0 10px;
+      font-family: var(--font-serif);
+      font-size: 26px;
+      color: #3a210f;
+    }
+
+    .profile-block p,
+    .profile-block li {
+      color: #554235;
+      line-height: 1.75;
+      font-size: 15px;
+    }
+
+    .profile-block ul {
+      margin: 8px 0 0;
+      padding-left: 1.1em;
+    }
+
+    .tag-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 14px;
+    }
+
+    .tag {
+      display: inline-flex;
+      padding: 7px 10px;
+      border-radius: 999px;
+      background: #f4e4d5;
+      color: #5c402c;
+      font-size: 13px;
+      border: 1px solid rgba(215, 186, 163, 0.58);
+    }
+
+    .gallery-grid {
+      columns: 3 220px;
+      column-gap: 16px;
+    }
+
+    .gallery-item {
+      break-inside: avoid;
+      margin: 0 0 16px;
+      border-radius: 20px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      background: rgba(255, 250, 244, 0.72);
+      box-shadow: 0 12px 26px rgba(87, 58, 34, 0.06);
+    }
+
+    .gallery-placeholder {
+      min-height: var(--h, 180px);
+      display: grid;
+      place-items: center;
+      text-align: center;
+      padding: 22px;
+      background:
+        linear-gradient(135deg, rgba(255, 237, 213, 0.9), rgba(255, 250, 244, 0.9)),
+        radial-gradient(circle at 20% 20%, #fff, transparent 30%);
+      color: #7d6654;
+      font-family: var(--font-serif);
+      font-size: 22px;
+      line-height: 1.45;
+    }
+
+    .gallery-caption {
+      padding: 12px 14px 14px;
+      color: #5c4b3e;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    footer.meta {
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      align-items: flex-start;
+      margin-top: 16px;
+      color: #3d322b;
+      font-size: 14px;
+      line-height: 1.55;
+    }
+
+    .sync { font-weight: 600; white-space: nowrap; }
+    .notice { text-align: right; color: #4f463f; }
+
+    .booking-cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 12px;
+      border: 1px solid #4a2e19;
+      background: #4a2e19;
+      color: #fffaf4;
+      text-decoration: none;
+      border-radius: 999px;
+      padding: 10px 18px;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      box-shadow: 0 12px 24px rgba(87, 58, 34, 0.12);
+    }
+
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: 22px;
+      transform: translateX(-50%) translateY(20px);
+      max-width: min(520px, calc(100% - 28px));
+      padding: 13px 16px;
+      border-radius: 16px;
+      background: rgba(51, 33, 20, 0.94);
+      color: #fffaf4;
+      font-size: 14px;
+      line-height: 1.55;
+      text-align: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: 0.22s ease;
+      z-index: 10;
+      box-shadow: 0 18px 45px rgba(51, 33, 20, 0.22);
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    .book-slot { display: none; }
+
+    @media (max-width: 980px) {
+      body { padding: 18px; }
+      .topbar { align-items: flex-start; flex-direction: column; }
+      .nav { justify-content: flex-start; }
+      .resume-grid { grid-template-columns: 1fr; }
+      .day { min-height: 104px; }
+      .pill { font-size: 15px; min-width: 104px; }
+    }
+
+    @media (max-width: 720px) {
+      body { padding: 12px; }
+      .shell { padding: 16px 13px 15px; border-radius: 22px; }
+      .brand-mark { width: 38px; height: 38px; }
+      .brand-text { font-size: 16px; }
+      .nav { width: 100%; display: grid; grid-template-columns: repeat(3, 1fr); gap: 7px; }
+      .nav button { padding: 9px 6px; font-size: 13px; }
+      .hero { padding: 10px 6px 14px; }
+      .decor-line::before, .decor-line::after { width: 70px; }
+      .calendar-wrap { border-radius: 18px; background: transparent; border: 0; }
+      .calendar { display: block; }
+      .weekday { display: none; }
+      .day {
+        min-height: unset;
+        margin-bottom: 9px;
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        background: rgba(255, 255, 255, 0.54);
+        padding: 11px 12px;
+        display: grid;
+        grid-template-columns: 17% 20% 38% 25%;
+        gap: 0;
+        text-align: left;
+        align-items: center;
+      }
+      .day.is-past { display: none; }
+      .day::before {
+        content: attr(data-weekday);
+        display: block;
+        font-family: var(--font-serif);
+        font-weight: 700;
+        letter-spacing: 0.05em;
+        color: #6d5542;
+        grid-column: 1;
+        grid-row: 1;
+        font-size: 13px;
+        text-align: center;
+        line-height: 30px;
+      }
+      .day-number {
+        grid-column: 2;
+        grid-row: 1;
+        font-size: 18px;
+        min-height: unset;
+        white-space: nowrap;
+        text-align: center;
+        line-height: 30px;
+      }
+      .slots {
+        grid-column: 3 / span 2;
+        grid-row: 1;
+        margin-top: 0;
+        align-items: stretch;
+        justify-content: center;
+        gap: 6px;
+      }
+      .slot-row {
+        display: contents;
+        width: 100%;
+      }
+      .pill {
+        grid-column: 3;
+        width: min(112px, 100%);
+        min-width: 0;
+        height: 30px;
+        font-size: 13px;
+        padding: 0 8px;
+        justify-self: center;
+      }
+      .book-slot {
+        grid-column: 4;
+        width: min(58px, 100%);
+        height: 30px;
+        padding: 0;
+        justify-self: center;
+      }
+      .no-availability { margin-top: 0; text-align: left; line-height: 30px; }
+      .book-slot {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        flex: 0 0 auto;
+        border: 1px solid var(--line-strong);
+        background: #4a2e19;
+        color: #fffaf4;
+        border-radius: 999px;
+        padding: 7px 12px;
+        font-size: 13px;
+        letter-spacing: 0.04em;
+        cursor: pointer;
+      }
+      .book-slot:active { transform: translateY(1px); }
+      footer.meta { flex-direction: column; gap: 7px; }
+      .notice { text-align: left; }
+      .resume-card, .gallery-card { padding: 16px; }
+      .profile-block { padding: 16px; }
+      .gallery-grid { columns: 1; }
+    }
+
+    @media (max-width: 420px) {
+      h1 { font-size: 30px; }
+      .subtitle { font-size: 13px; }
+      .date-range { font-size: 16px; }
+      .day { grid-template-columns: 17% 20% 38% 25%; gap: 0; padding: 10px; }
+      .pill { width: min(104px, 100%); font-size: 12.5px; }
+      .book-slot { width: min(54px, 100%); height: 30px; padding: 0; font-size: 12px; }
+      .nav button { font-size: 12px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="site">
+    <section class="shell">
+      <div class="topbar">
+        <div class="brand">
+          <span class="brand-mark" aria-hidden="true">🧸</span>
+          <span class="brand-text">Felicia Childcare</span>
+        </div>
+        <nav class="nav" aria-label="Page navigation">
+          <button type="button" class="active" data-page-target="availability">Availability</button>
+          <button type="button" data-page-target="resume">Resume</button>
+          <button type="button" data-page-target="gallery">Gallery</button>
+        </nav>
+      </div>
+
+      <section id="availability" class="page active">
+        <header class="hero">
+          <h1>Felicia's Available Time</h1>
+          <div class="decor-line"><span class="decor-symbol">⌁</span></div>
+          <div class="subtitle">
+            到宅陪玩 ‧ 臨托服務 ‧ 高雄市區 ‧ 彈性時段<br />
+            Mandarin &amp; English Bilingual Childcare ‧ Kaohsiung
+          </div>
+          <div class="date-range" id="rangeLabel">--</div>
+        </header>
+
+        <div id="state" class="state">Loading availability...</div>
+        <div id="calendarWrap" class="calendar-wrap" hidden>
+          <div id="calendar" class="calendar"></div>
+        </div>
+
+        <footer class="meta">
+          <div class="sync" id="lastSynced">資料同步時間：--</div>
+          <div class="notice">
+            空檔僅供參考，實際預約仍以私訊確認為準。<br />
+            Availability is for reference only. Final booking will be confirmed by message.<br />
+            <a id="lineBookingLink" class="booking-cta" href="#" target="_blank" rel="noopener">點我預約 / Book via LINE</a>
+          </div>
+        </footer>
+      </section>
+
+      <section id="resume" class="page content-page">
+        <div class="section-title">
+          <h2>Resume</h2>
+          <p>到宅陪玩與臨托服務簡介。此頁可先放履歷摘要，之後再補上正式中英文完整版本。</p>
+        </div>
+
+        <div class="resume-card">
+          <div class="lang-toggle" aria-label="Resume language">
+            <button type="button" class="active" data-lang-target="zh">中文</button>
+            <button type="button" data-lang-target="en">English</button>
+          </div>
+
+          <div id="resume-zh" class="resume-version active">
+            <div class="resume-grid">
+              <div class="profile-block">
+                <h3>Felicia</h3>
+                <p>提供高雄市區到宅陪玩與臨托服務。重視安全感、陪伴品質與家長溝通，能以溫和、穩定、有界線的方式陪伴小孩。</p>
+                <div class="tag-list">
+                  <span class="tag">到宅陪玩</span>
+                  <span class="tag">臨托照顧</span>
+                  <span class="tag">中英雙語</span>
+                  <span class="tag">彈性時段</span>
+                </div>
+              </div>
+              <div class="profile-block">
+                <h3>服務重點</h3>
+                <ul>
+                  <li>陪伴遊戲、共讀、簡單生活照顧與安全看顧</li>
+                  <li>可依家庭習慣配合小孩作息與照顧規則</li>
+                  <li>照顧過程中會與家長保持清楚、即時的溝通</li>
+                  <li>實際服務內容與時段皆以私訊確認為準</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div id="resume-en" class="resume-version">
+            <div class="resume-grid">
+              <div class="profile-block">
+                <h3>Felicia</h3>
+                <p>Kaohsiung-based in-home childcare and play companion service. I focus on safety, warm companionship, and clear communication with parents.</p>
+                <div class="tag-list">
+                  <span class="tag">In-home childcare</span>
+                  <span class="tag">Play companion</span>
+                  <span class="tag">Mandarin &amp; English</span>
+                  <span class="tag">Flexible hours</span>
+                </div>
+              </div>
+              <div class="profile-block">
+                <h3>Service Highlights</h3>
+                <ul>
+                  <li>Playtime, reading, basic daily care, and safe supervision</li>
+                  <li>Flexible support based on each family's routine and rules</li>
+                  <li>Clear and timely communication with parents</li>
+                  <li>Final schedule and service details will be confirmed by message</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="gallery" class="page content-page">
+        <div class="section-title">
+          <h2>Certificates &amp; Moments</h2>
+          <p>之後可放托育人員課程結業證書、保母證照、陪伴小孩的照片或家長回饋。現在先預留瀑布牆版位。</p>
+        </div>
+
+        <div class="gallery-card">
+          <div class="gallery-grid">
+            <article class="gallery-item">
+              <div class="gallery-placeholder" style="--h: 210px;">Certificate<br />Coming Soon</div>
+              <div class="gallery-caption">托育人員課程結業證書預留位置</div>
+            </article>
+            <article class="gallery-item">
+              <div class="gallery-placeholder" style="--h: 270px;">Nanny License<br />Planned</div>
+              <div class="gallery-caption">保母證照預留位置</div>
+            </article>
+            <article class="gallery-item">
+              <div class="gallery-placeholder" style="--h: 190px;">Childcare<br />Photo</div>
+              <div class="gallery-caption">照顧互動照片，建議避開小孩正臉或先取得家長同意</div>
+            </article>
+            <article class="gallery-item">
+              <div class="gallery-placeholder" style="--h: 245px;">Reading Time</div>
+              <div class="gallery-caption">共讀、玩具、活動紀錄等生活感素材</div>
+            </article>
+            <article class="gallery-item">
+              <div class="gallery-placeholder" style="--h: 180px;">Parent<br />Feedback</div>
+              <div class="gallery-caption">家長回饋截圖或文字推薦預留位置</div>
+            </article>
+          </div>
+        </div>
+      </section>
+    </section>
+  </main>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    const API_URL = "https://script.google.com/macros/s/AKfycby4jXsRhGbM3zq1rLRvc6EPhLvvUHbnL5ASx4ZEpI1FjnJPTQsJoiM2bGO1TGTv0OQa/exec";
+    const LINE_URL = "https://line.me/ti/p/Qo5p54Zsqn";
+    const WEEKDAYS = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
+    const WEEKDAYS_WITH_DOT = ["Sun.", "Mon.", "Tue.", "Wed.", "Thu.", "Fri.", "Sat."];
+
+    function setupNavigation() {
+      document.querySelectorAll("[data-page-target]").forEach(button => {
+        button.addEventListener("click", () => {
+          const target = button.dataset.pageTarget;
+          document.querySelectorAll("[data-page-target]").forEach(item => item.classList.toggle("active", item === button));
+          document.querySelectorAll(".page").forEach(page => page.classList.toggle("active", page.id === target));
+        });
+      });
+
+      document.querySelectorAll("[data-lang-target]").forEach(button => {
+        button.addEventListener("click", () => {
+          const target = button.dataset.langTarget;
+          document.querySelectorAll("[data-lang-target]").forEach(item => item.classList.toggle("active", item === button));
+          document.querySelectorAll(".resume-version").forEach(version => version.classList.toggle("active", version.id === `resume-${target}`));
+        });
+      });
+    }
+
+    function loadJsonp(url) {
+      return new Promise((resolve, reject) => {
+        const callbackName = `availabilityCallback_${Date.now()}_${Math.random().toString(36).slice(2)}`;
+        const script = document.createElement("script");
+        const separator = url.includes("?") ? "&" : "?";
+
+        window[callbackName] = data => {
+          resolve(data);
+          cleanup();
+        };
+
+        script.onerror = () => {
+          reject(new Error("Unable to load data from Google Sheets."));
+          cleanup();
+        };
+
+        function cleanup() {
+          delete window[callbackName];
+          script.remove();
+        }
+
+        script.src = `${url}${separator}callback=${callbackName}&t=${Date.now()}`;
+        document.body.appendChild(script);
+      });
+    }
+
+    function parseDate(dateString) {
+      const [year, month, day] = String(dateString).split("-").map(Number);
+      return new Date(year, month - 1, day);
+    }
+
+    function formatDateKey(date) {
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, "0");
+      const day = String(date.getDate()).padStart(2, "0");
+      return `${year}-${month}-${day}`;
+    }
+
+    function formatShortDate(date) {
+      return `${date.getMonth() + 1}/${date.getDate()}`;
+    }
+
+    function formatFullDate(date) {
+      return `${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate()}`;
+    }
+
+    function formatBookingDate(date) {
+      return `${formatFullDate(date)} (${WEEKDAYS_WITH_DOT[date.getDay()]})`;
+    }
+
+    function buildBookingMessage(date, timeText) {
+      const bookingDate = formatBookingDate(date);
+      return `想預約 ${bookingDate} 的 ${timeText}，請問是否還有空檔？
+Hi Felicia, I would like to book ${bookingDate} ${timeText}. Is this time still available?`;
+    }
+
+    function showToast(message) {
+      const toast = document.getElementById("toast");
+      toast.textContent = message;
+      toast.classList.add("show");
+      clearTimeout(showToast.timer);
+      showToast.timer = setTimeout(() => toast.classList.remove("show"), 3200);
+    }
+
+    async function copyText(text) {
+      if (navigator.clipboard && window.isSecureContext) {
+        await navigator.clipboard.writeText(text);
+        return true;
+      }
+
+      const textarea = document.createElement("textarea");
+      textarea.value = text;
+      textarea.setAttribute("readonly", "");
+      textarea.style.position = "fixed";
+      textarea.style.left = "-9999px";
+      document.body.appendChild(textarea);
+      textarea.select();
+      const success = document.execCommand("copy");
+      textarea.remove();
+      return success;
+    }
+
+    async function handleBookingClick(date, timeText) {
+      const message = buildBookingMessage(date, timeText);
+      try {
+        await copyText(message);
+        showToast("已複製預約訊息，即將開啟 LINE。 / Booking message copied. Opening LINE...");
+      } catch (error) {
+        showToast("複製失敗，仍會開啟 LINE。 / Copy failed, but LINE will still open.");
+      }
+
+      window.setTimeout(() => {
+        window.location.href = LINE_URL;
+      }, 850);
+    }
+
+    function addMonths(date, months) {
+      const result = new Date(date);
+      const originalDay = result.getDate();
+      result.setMonth(result.getMonth() + months);
+      if (result.getDate() !== originalDay) result.setDate(0);
+      return result;
+    }
+
+    function getCalendarRange() {
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+
+      const start = new Date(today);
+      start.setDate(today.getDate() - today.getDay());
+
+      const baseEnd = addMonths(today, 1);
+      const end = new Date(baseEnd);
+      end.setDate(baseEnd.getDate() + (6 - baseEnd.getDay()));
+
+      return { start, end };
+    }
+
+    function getDatesBetween(start, end) {
+      const dates = [];
+      const cursor = new Date(start);
+      while (cursor <= end) {
+        dates.push(new Date(cursor));
+        cursor.setDate(cursor.getDate() + 1);
+      }
+      return dates;
+    }
+
+    function normalizeStatus(status) {
+      return String(status || "").trim().toLowerCase();
+    }
+
+    function normalizeTimeText(startTime, endTime) {
+      if (!startTime || !endTime) return "";
+      return `${String(startTime).trim()}–${String(endTime).trim()}`;
+    }
+
+    function getPillClass(timeText) {
+      if (timeText === "8:00–22:00") return "blue";
+      if (timeText === "9:00–18:00") return "green";
+      return "orange";
+    }
+
+    function groupScheduleByDate(schedule) {
+      return schedule.reduce((map, item) => {
+        if (!item.date) return map;
+        if (!map.has(item.date)) map.set(item.date, []);
+        map.get(item.date).push(item);
+        return map;
+      }, new Map());
+    }
+
+    function createElement(tag, className, text) {
+      const element = document.createElement(tag);
+      if (className) element.className = className;
+      if (text !== undefined) element.textContent = text;
+      return element;
+    }
+
+    function renderCalendar(data) {
+      const calendar = document.getElementById("calendar");
+      const calendarWrap = document.getElementById("calendarWrap");
+      const state = document.getElementById("state");
+      const lastSynced = document.getElementById("lastSynced");
+      const rangeLabel = document.getElementById("rangeLabel");
+
+      calendar.innerHTML = "";
+      WEEKDAYS.forEach(day => calendar.appendChild(createElement("div", "weekday", day)));
+
+      const scheduleByDate = groupScheduleByDate(data.schedule || []);
+      const holidaySet = new Set((data.holiday || []).map(item => item.date).filter(Boolean));
+      const { start, end } = getCalendarRange();
+      const dates = getDatesBetween(start, end);
+
+      rangeLabel.textContent = `${formatFullDate(start)} – ${formatFullDate(end)}`;
+      lastSynced.textContent = `資料同步時間：${data.lastSynced || "--"}`;
+
+      dates.forEach(date => {
+        const key = formatDateKey(date);
+        const rows = scheduleByDate.get(key) || [];
+        const isWeekend = date.getDay() === 0 || date.getDay() === 6;
+        const isHoliday = holidaySet.has(key);
+        const weekday = WEEKDAYS[date.getDay()];
+
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        const isPast = date < today;
+
+        const dayCell = createElement("div", `day${isWeekend || isHoliday ? " is-red" : ""}${isPast ? " is-past" : ""}`);
+        dayCell.setAttribute("data-weekday", weekday);
+        dayCell.appendChild(createElement("div", "day-number", formatShortDate(date)));
+
+        const slots = createElement("div", "slots");
+        const availableRows = rows
+          .filter(row => normalizeStatus(row.status) === "available")
+          .sort((a, b) => String(a.startTime || "").localeCompare(String(b.startTime || "")));
+
+        if (availableRows.length > 0) {
+          availableRows.forEach(row => {
+            const text = normalizeTimeText(row.startTime, row.endTime);
+            const slotRow = createElement("div", "slot-row");
+            slotRow.appendChild(createElement("div", `pill ${getPillClass(text)}`, text));
+
+            const button = createElement("button", "book-slot", "預約");
+            button.type = "button";
+            button.addEventListener("click", () => handleBookingClick(date, text));
+            slotRow.appendChild(button);
+
+            slots.appendChild(slotRow);
+          });
+        } else if (rows.some(row => ["full", "unavailable"].includes(normalizeStatus(row.status)))) {
+          slots.appendChild(createElement("div", "no-availability", "×"));
+        }
+
+        dayCell.appendChild(slots);
+        calendar.appendChild(dayCell);
+      });
+
+      state.hidden = true;
+      calendarWrap.hidden = false;
+    }
+
+    async function init() {
+      setupNavigation();
+      const lineBookingLink = document.getElementById("lineBookingLink");
+      lineBookingLink.href = LINE_URL;
+
+      const state = document.getElementById("state");
+      try {
+        const data = await loadJsonp(API_URL);
+        renderCalendar(data);
+      } catch (error) {
+        state.textContent = "Unable to load availability. Please try again later.";
+        console.error(error);
+      }
+    }
+
+    init();
+  </script>
+</body>
+</html>
