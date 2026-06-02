@@ -1,14 +1,13 @@
 <!doctype html>
-<html lang="en">
+<html lang="zh-Hant">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Felicia's Childcare Service</title>
+  <title>Felicia Childcare</title>
   <style>
     :root {
       --bg: #f7efe6;
-      --bg-2: #fffaf4;
-      --paper: rgba(255, 252, 247, 0.92);
+      --paper: rgba(255, 252, 247, 0.94);
       --paper-solid: #fffaf4;
       --ink: #332114;
       --soft-ink: #6e5b4c;
@@ -25,12 +24,11 @@
       --shadow: 0 24px 70px rgba(87, 58, 34, 0.11);
       --radius-xl: 30px;
       --radius-lg: 22px;
-      --font-serif: Georgia, "Times New Roman", serif;
-      --font-sans: "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-serif: Georgia, "Times New Roman", "Noto Serif TC", serif;
+      --font-sans: "Segoe UI", "Noto Sans TC", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
     }
 
     * { box-sizing: border-box; }
-
     html { scroll-behavior: smooth; }
 
     body {
@@ -46,10 +44,9 @@
       padding: 28px;
     }
 
-    .site {
-      width: min(1180px, 100%);
-      margin: 0 auto;
-    }
+    button, select, input { font: inherit; }
+
+    .site { width: min(1180px, 100%); margin: 0 auto; }
 
     .shell {
       position: relative;
@@ -94,9 +91,7 @@
       transform: rotate(-14deg);
     }
 
-    .topbar,
-    .page,
-    footer { position: relative; z-index: 1; }
+    .topbar, .page, footer, .floating-basket { position: relative; z-index: 1; }
 
     .topbar {
       display: flex;
@@ -144,8 +139,7 @@
       flex-wrap: wrap;
     }
 
-    .nav button,
-    .lang-toggle button {
+    .nav button, .lang-toggle button, .secondary-btn, .primary-btn {
       border: 1px solid var(--line-strong);
       background: rgba(255, 250, 244, 0.66);
       color: #4a3324;
@@ -156,16 +150,18 @@
       cursor: pointer;
       transition: 0.2s ease;
       font-family: var(--font-sans);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
     }
 
-    .nav button:hover,
-    .lang-toggle button:hover {
+    .nav button:hover, .lang-toggle button:hover, .secondary-btn:hover, .primary-btn:hover {
       transform: translateY(-1px);
       box-shadow: 0 8px 18px rgba(87, 58, 34, 0.08);
     }
 
-    .nav button.active,
-    .lang-toggle button.active {
+    .nav button.active, .lang-toggle button.active, .primary-btn {
       background: #4a2e19;
       border-color: #4a2e19;
       color: #fffaf4;
@@ -182,16 +178,21 @@
     h1 {
       margin: 0;
       font-family: var(--font-serif);
-      font-size: clamp(29px, 4.4vw, 48px);
+      font-size: clamp(36px, 5.2vw, 62px);
       line-height: 1.08;
       font-weight: 600;
       letter-spacing: 0.025em;
       color: #3a210f;
     }
 
+    .hero-title-small {
+      font-size: clamp(28px, 4.4vw, 48px);
+      white-space: nowrap;
+    }
+
     .subtitle {
       margin: 14px auto 0;
-      max-width: 820px;
+      max-width: 880px;
       color: var(--soft-ink);
       font-size: clamp(14px, 1.8vw, 17px);
       line-height: 1.8;
@@ -215,8 +216,7 @@
       color: #b68d71;
     }
 
-    .decor-line::before,
-    .decor-line::after {
+    .decor-line::before, .decor-line::after {
       content: "";
       width: min(150px, 18vw);
       height: 1px;
@@ -224,6 +224,112 @@
     }
 
     .decor-symbol { font-size: 20px; transform: translateY(-1px); }
+
+    .intro-lede {
+      max-width: 850px;
+      margin: 18px auto 0;
+      color: #4f4036;
+      line-height: 2;
+      font-size: 16px;
+      text-align: center;
+    }
+
+    .content-page { padding: 18px 8px 6px; }
+
+    .section-title {
+      text-align: center;
+      margin: 10px auto 22px;
+    }
+
+    .section-title h2 {
+      margin: 0;
+      font-family: var(--font-serif);
+      font-size: clamp(30px, 4.2vw, 48px);
+      font-weight: 600;
+      letter-spacing: 0.025em;
+      color: #3a210f;
+    }
+
+    .section-title p {
+      margin: 10px auto 0;
+      color: var(--soft-ink);
+      line-height: 1.7;
+      max-width: 760px;
+    }
+
+    .resume-card, .gallery-card {
+      background: rgba(255, 255, 255, 0.48);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+    }
+
+    .lang-toggle {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 18px;
+    }
+
+    .resume-version { display: none; }
+    .resume-version.active { display: block; }
+
+    .resume-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+      align-items: start;
+    }
+
+    .profile-block {
+      padding: 20px;
+      border-radius: 18px;
+      background: rgba(255, 250, 244, 0.72);
+      border: 1px solid rgba(230, 212, 195, 0.72);
+    }
+
+    .profile-block h3 {
+      margin: 0 0 10px;
+      font-family: var(--font-serif);
+      font-size: 25px;
+      color: #3a210f;
+    }
+
+    .profile-block p, .profile-block li {
+      color: #554235;
+      line-height: 1.75;
+      font-size: 15px;
+    }
+
+    .profile-block ul {
+      margin: 8px 0 0;
+      padding-left: 1.1em;
+    }
+
+    .profile-block.feature { grid-column: 1 / -1; text-align: center; }
+    .profile-block.feature p { max-width: 900px; margin: 0 auto; }
+
+    .tag-list { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; justify-content: center; }
+
+    .tag {
+      display: inline-flex;
+      padding: 7px 10px;
+      border-radius: 999px;
+      background: #f4e4d5;
+      color: #5c402c;
+      font-size: 13px;
+      border: 1px solid rgba(215, 186, 163, 0.58);
+    }
+
+    /* Availability */
+    .availability-note {
+      margin: 4px auto 14px;
+      max-width: 840px;
+      text-align: center;
+      color: #5b483b;
+      line-height: 1.7;
+      font-size: 14px;
+    }
 
     .calendar-wrap {
       overflow: hidden;
@@ -286,7 +392,11 @@
       gap: 7px;
     }
 
+    .slot-row { width: 100%; display: flex; justify-content: center; }
+
     .pill {
+      appearance: none;
+      border: 0;
       display: inline-flex;
       align-items: center;
       justify-content: center;
@@ -299,6 +409,15 @@
       font-size: 16px;
       line-height: 1.1;
       white-space: nowrap;
+      cursor: pointer;
+    }
+
+    .pill::after {
+      content: "▼";
+      font-size: 9px;
+      margin-left: 6px;
+      transform: translateY(-1px);
+      opacity: 0.78;
     }
 
     .pill.blue { background: var(--blue-bg); color: var(--blue-text); }
@@ -319,136 +438,6 @@
       font-size: 15px;
     }
 
-    .content-page {
-      padding: 18px 8px 6px;
-    }
-
-    .section-title {
-      text-align: center;
-      margin: 10px auto 22px;
-    }
-
-    .section-title h2 {
-      margin: 0;
-      font-family: var(--font-serif);
-      font-size: clamp(30px, 4.2vw, 48px);
-      font-weight: 600;
-      letter-spacing: 0.025em;
-      color: #3a210f;
-    }
-
-    .section-title p {
-      margin: 10px auto 0;
-      color: var(--soft-ink);
-      line-height: 1.7;
-      max-width: 760px;
-    }
-
-    .resume-card,
-    .gallery-card {
-      background: rgba(255, 255, 255, 0.48);
-      border: 1px solid var(--line);
-      border-radius: var(--radius-lg);
-      padding: 24px;
-    }
-
-    .lang-toggle {
-      display: flex;
-      justify-content: center;
-      gap: 8px;
-      margin-bottom: 18px;
-    }
-
-    .resume-version { display: none; }
-    .resume-version.active { display: block; }
-
-    .resume-grid {
-      display: grid;
-      grid-template-columns: 1.1fr 1fr;
-      gap: 22px;
-      align-items: start;
-    }
-
-    .profile-block {
-      padding: 20px;
-      border-radius: 18px;
-      background: rgba(255, 250, 244, 0.72);
-      border: 1px solid rgba(230, 212, 195, 0.72);
-    }
-
-    .profile-block h3 {
-      margin: 0 0 10px;
-      font-family: var(--font-serif);
-      font-size: 26px;
-      color: #3a210f;
-    }
-
-    .profile-block p,
-    .profile-block li {
-      color: #554235;
-      line-height: 1.75;
-      font-size: 15px;
-    }
-
-    .profile-block ul {
-      margin: 8px 0 0;
-      padding-left: 1.1em;
-    }
-
-    .tag-list {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 14px;
-    }
-
-    .tag {
-      display: inline-flex;
-      padding: 7px 10px;
-      border-radius: 999px;
-      background: #f4e4d5;
-      color: #5c402c;
-      font-size: 13px;
-      border: 1px solid rgba(215, 186, 163, 0.58);
-    }
-
-    .gallery-grid {
-      columns: 3 220px;
-      column-gap: 16px;
-    }
-
-    .gallery-item {
-      break-inside: avoid;
-      margin: 0 0 16px;
-      border-radius: 20px;
-      overflow: hidden;
-      border: 1px solid var(--line);
-      background: rgba(255, 250, 244, 0.72);
-      box-shadow: 0 12px 26px rgba(87, 58, 34, 0.06);
-    }
-
-    .gallery-placeholder {
-      min-height: var(--h, 180px);
-      display: grid;
-      place-items: center;
-      text-align: center;
-      padding: 22px;
-      background:
-        linear-gradient(135deg, rgba(255, 237, 213, 0.9), rgba(255, 250, 244, 0.9)),
-        radial-gradient(circle at 20% 20%, #fff, transparent 30%);
-      color: #7d6654;
-      font-family: var(--font-serif);
-      font-size: 22px;
-      line-height: 1.45;
-    }
-
-    .gallery-caption {
-      padding: 12px 14px 14px;
-      color: #5c4b3e;
-      font-size: 14px;
-      line-height: 1.6;
-    }
-
     footer.meta {
       display: flex;
       justify-content: space-between;
@@ -463,20 +452,188 @@
     .sync { font-weight: 600; white-space: nowrap; }
     .notice { text-align: right; color: #4f463f; }
 
-    .booking-cta {
-      display: inline-flex;
+    .floating-basket {
+      position: sticky;
+      bottom: 14px;
+      display: none;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin: 16px auto 0;
+      padding: 12px;
+      border: 1px solid rgba(215, 186, 163, 0.86);
+      border-radius: 18px;
+      background: rgba(255, 250, 244, 0.96);
+      box-shadow: 0 18px 42px rgba(87, 58, 34, 0.13);
+      max-width: 720px;
+    }
+
+    .floating-basket.show { display: flex; }
+
+    .basket-count { font-weight: 700; color: #4a2e19; }
+
+    .basket-actions { display: flex; gap: 8px; flex-wrap: wrap; justify-content: flex-end; }
+
+    /* Gallery */
+    .gallery-section { margin-bottom: 24px; }
+    .gallery-section h3 {
+      font-family: var(--font-serif);
+      font-size: 28px;
+      margin: 0 0 14px;
+      color: #3a210f;
+      text-align: center;
+    }
+
+    .gallery-grid {
+      columns: 3 230px;
+      column-gap: 16px;
+    }
+
+    .gallery-item {
+      break-inside: avoid;
+      margin: 0 0 16px;
+      border-radius: 20px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      background: rgba(255, 250, 244, 0.72);
+      box-shadow: 0 12px 26px rgba(87, 58, 34, 0.06);
+    }
+
+    .gallery-item img { width: 100%; display: block; }
+
+    .gallery-caption {
+      padding: 12px 14px 14px;
+      color: #5c4b3e;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .feedback-card {
+      padding: 22px;
+      border-radius: 20px;
+      background: #f5e6d8;
+      color: #4f3929;
+      font-size: 18px;
+      line-height: 1.8;
+      font-family: var(--font-serif);
+    }
+
+    .feedback-card small {
+      display: block;
+      margin-top: 12px;
+      font-family: var(--font-sans);
+      color: #7c6655;
+      font-size: 13px;
+    }
+
+    /* Modals */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(51, 33, 20, 0.36);
+      display: none;
       align-items: center;
       justify-content: center;
-      margin-top: 12px;
-      border: 1px solid #4a2e19;
-      background: #4a2e19;
-      color: #fffaf4;
-      text-decoration: none;
-      border-radius: 999px;
-      padding: 10px 18px;
+      padding: 18px;
+      z-index: 20;
+    }
+
+    .modal-backdrop.show { display: flex; }
+
+    .modal {
+      width: min(520px, 100%);
+      max-height: calc(100vh - 36px);
+      overflow: auto;
+      background: var(--paper-solid);
+      border: 1px solid var(--line-strong);
+      border-radius: 24px;
+      box-shadow: 0 30px 80px rgba(51, 33, 20, 0.24);
+      padding: 22px;
+    }
+
+    .modal h3 {
+      margin: 0 0 10px;
+      font-family: var(--font-serif);
+      font-size: 26px;
+      color: #3a210f;
+    }
+
+    .modal p { color: #5b483b; line-height: 1.7; margin: 8px 0; }
+
+    .field-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin: 16px 0;
+    }
+
+    label {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      color: #5b483b;
+      font-size: 14px;
       font-weight: 600;
-      letter-spacing: 0.03em;
-      box-shadow: 0 12px 24px rgba(87, 58, 34, 0.12);
+    }
+
+    select {
+      width: 100%;
+      border: 1px solid var(--line-strong);
+      border-radius: 14px;
+      background: #fff;
+      color: var(--ink);
+      padding: 10px 12px;
+      font-size: 16px;
+    }
+
+    .modal-note {
+      background: #fff5e8;
+      border: 1px solid #f1d4b8;
+      color: #684a36;
+      border-radius: 16px;
+      padding: 11px 13px;
+      font-size: 14px;
+      line-height: 1.65;
+      margin: 10px 0;
+    }
+
+    .warning { color: #b45309; font-weight: 700; min-height: 22px; }
+
+    .modal-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 16px;
+    }
+
+    .selected-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin: 14px 0;
+    }
+
+    .selected-item {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 10px;
+      align-items: center;
+      padding: 12px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: rgba(255,255,255,0.62);
+      color: #4f3929;
+      line-height: 1.6;
+    }
+
+    .remove-btn {
+      border: 0;
+      border-radius: 999px;
+      background: #f2d7c1;
+      color: #6b3b23;
+      padding: 7px 11px;
+      cursor: pointer;
     }
 
     .toast {
@@ -495,16 +652,11 @@
       opacity: 0;
       pointer-events: none;
       transition: 0.22s ease;
-      z-index: 10;
+      z-index: 30;
       box-shadow: 0 18px 45px rgba(51, 33, 20, 0.22);
     }
 
-    .toast.show {
-      opacity: 1;
-      transform: translateX(-50%) translateY(0);
-    }
-
-    .book-slot { display: none; }
+    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
     @media (max-width: 980px) {
       body { padding: 18px; }
@@ -513,6 +665,8 @@
       .resume-grid { grid-template-columns: 1fr; }
       .day { min-height: 104px; }
       .pill { font-size: 15px; min-width: 104px; }
+      .profile-block.feature { text-align: left; }
+      .tag-list { justify-content: flex-start; }
     }
 
     @media (max-width: 720px) {
@@ -523,10 +677,13 @@
       .nav { width: 100%; display: grid; grid-template-columns: repeat(3, 1fr); gap: 7px; }
       .nav button { padding: 9px 6px; font-size: 13px; }
       .hero { padding: 10px 6px 14px; }
+      .hero-title-small { font-size: 25px; white-space: nowrap; letter-spacing: 0.01em; }
       .decor-line::before, .decor-line::after { width: 70px; }
+
       .calendar-wrap { border-radius: 18px; background: transparent; border: 0; }
       .calendar { display: block; }
       .weekday { display: none; }
+
       .day {
         min-height: unset;
         margin-bottom: 9px;
@@ -540,7 +697,9 @@
         text-align: left;
         align-items: center;
       }
+
       .day.is-past { display: none; }
+
       .day::before {
         content: attr(data-weekday);
         display: block;
@@ -554,6 +713,7 @@
         text-align: center;
         line-height: 30px;
       }
+
       .day-number {
         grid-column: 2;
         grid-row: 1;
@@ -563,6 +723,7 @@
         text-align: center;
         line-height: 30px;
       }
+
       .slots {
         grid-column: 3;
         grid-row: 1;
@@ -572,63 +733,54 @@
         gap: 6px;
         min-width: 0;
       }
+
       .slot-row {
-        display: grid;
-        grid-template-columns: minmax(88px, 1fr) 46px;
+        display: flex;
         align-items: center;
-        gap: 7px;
+        justify-content: flex-end;
         width: 100%;
-        min-width: 0;
       }
+
       .pill {
-        width: 100%;
+        width: min(142px, 100%);
         min-width: 0;
         height: 30px;
         font-size: 13px;
-        padding: 0 7px;
-        justify-self: stretch;
-      }
-      .book-slot {
-        width: 46px;
-        height: 30px;
-        padding: 0;
+        padding: 0 8px;
         justify-self: end;
       }
+
       .no-availability { margin-top: 0; text-align: left; line-height: 30px; }
-      .book-slot {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        flex: 0 0 auto;
-        border: 1px solid var(--line-strong);
-        background: #4a2e19;
-        color: #fffaf4;
-        border-radius: 999px;
-        padding: 7px 12px;
-        font-size: 13px;
-        letter-spacing: 0.04em;
-        cursor: pointer;
-      }
-      .book-slot:active { transform: translateY(1px); }
+
       footer.meta { flex-direction: column; gap: 7px; }
       .notice { text-align: left; }
       .resume-card, .gallery-card { padding: 16px; }
       .profile-block { padding: 16px; }
       .gallery-grid { columns: 1; }
+      .floating-basket {
+        position: fixed;
+        left: 12px;
+        right: 12px;
+        bottom: 12px;
+        margin: 0;
+      }
+      .floating-basket.show + * { padding-bottom: 90px; }
+      .basket-actions .secondary-btn, .basket-actions .primary-btn { padding: 9px 11px; font-size: 13px; }
     }
 
     @media (max-width: 420px) {
-      h1 { font-size: 25px; white-space: nowrap; letter-spacing: 0.01em; }
+      h1 { font-size: 31px; }
+      .hero-title-small { font-size: 24px; }
       .subtitle { font-size: 13px; }
       .date-range { font-size: 16px; }
       .day { grid-template-columns: 36px 46px minmax(0, 1fr); gap: 5px; padding: 10px 9px; }
-      .slot-row { grid-template-columns: minmax(82px, 1fr) 44px; gap: 6px; }
-      .pill { font-size: 12.5px; }
-      .book-slot { width: 44px; height: 30px; padding: 0; font-size: 12px; }
+      .pill { width: min(132px, 100%); font-size: 12.5px; }
       .nav button { font-size: 12px; }
+      .field-row { grid-template-columns: 1fr; }
     }
   </style>
 </head>
+
 <body>
   <main class="site">
     <section class="shell">
@@ -638,43 +790,26 @@
           <span class="brand-text">Felicia Childcare</span>
         </div>
         <nav class="nav" aria-label="Page navigation">
-          <button type="button" class="active" data-page-target="availability">Availability</button>
-          <button type="button" data-page-target="resume">Resume</button>
-          <button type="button" data-page-target="gallery">Gallery</button>
+          <button type="button" class="active" data-page-target="about">關於我 / About</button>
+          <button type="button" data-page-target="availability">查看空檔 / Availability</button>
+          <button type="button" data-page-target="gallery">證書與照片 / Gallery</button>
         </nav>
       </div>
 
-      <section id="availability" class="page active">
+      <section id="about" class="page active content-page">
         <header class="hero">
-          <h1>Felicia's Available Time</h1>
+          <h1>Felicia Childcare</h1>
           <div class="decor-line"><span class="decor-symbol">⌁</span></div>
           <div class="subtitle">
-            到宅陪玩 ‧ 臨托服務 ‧ 高雄市區 ‧ 彈性時段<br />
+            到宅陪玩・臨托服務｜高雄市區・中英雙語<br />
             Mandarin &amp; English Bilingual Childcare
           </div>
-          <div class="date-range" id="rangeLabel">--</div>
+          <p class="intro-lede">
+            提供高雄市區到宅陪玩與臨托服務，可使用中文、英文與台語溝通。<br />
+            適合需要短時段支援，也希望在照顧孩子之餘，為自己保留一點 me time 的爸爸媽媽。<br />
+            無論是想專心處理工作、短暫休息，或偶爾安排一場不被打擾的兩人約會，都能放心讓我陪伴孩子度過一段安心、自在的時光。
+          </p>
         </header>
-
-        <div id="state" class="state">Loading availability...</div>
-        <div id="calendarWrap" class="calendar-wrap" hidden>
-          <div id="calendar" class="calendar"></div>
-        </div>
-
-        <footer class="meta">
-          <div class="sync" id="lastSynced">資料同步時間：--</div>
-          <div class="notice">
-            空檔僅供參考，實際預約仍以私訊確認為準。<br />
-            Availability is for reference only. Final booking will be confirmed by message.<br />
-            <a id="lineBookingLink" class="booking-cta" href="#" target="_blank" rel="noopener">點我預約 / Book via LINE</a>
-          </div>
-        </footer>
-      </section>
-
-      <section id="resume" class="page content-page">
-        <div class="section-title">
-          <h2>Hi, 我是 Felicia</h2>
-          <p>到宅陪玩 / 臨托服務｜以安全、耐心、細心與良好溝通，陪伴孩子也讓家長放心。</p>
-        </div>
 
         <div class="resume-card">
           <div class="lang-toggle" aria-label="Resume language">
@@ -684,6 +819,17 @@
 
           <div id="resume-zh" class="resume-version active">
             <div class="resume-grid">
+              <div class="profile-block feature">
+                <h3>服務定位</h3>
+                <p>希望成為爸爸媽媽值得信任的短時段支援，讓孩子被溫柔陪伴，也讓大人可以安心喘口氣。</p>
+                <div class="tag-list">
+                  <span class="tag">到宅陪玩</span>
+                  <span class="tag">臨托服務</span>
+                  <span class="tag">中文 / 英文 / 台語</span>
+                  <span class="tag">高雄市區</span>
+                </div>
+              </div>
+
               <div class="profile-block">
                 <h3>服務簡介</h3>
                 <ul>
@@ -691,14 +837,8 @@
                   <li>也曾協助親戚與朋友照顧小孩，年齡約 2～6 歲都有</li>
                   <li>提供到宅陪玩 / 臨托服務，地點以高雄市區為主</li>
                   <li>三多商圈附近兩站內佳，騎車約 10 分鐘內可配合</li>
-                  <li>時間可彈性討論，目前固定陪伴時段多為一週兩個中午時段，因此希望再安排其他時段服務</li>
+                  <li>時間可彈性討論，實際安排以私訊確認為準</li>
                 </ul>
-                <div class="tag-list">
-                  <span class="tag">到宅陪玩</span>
-                  <span class="tag">臨托服務</span>
-                  <span class="tag">中文 / 英文 / 台語</span>
-                  <span class="tag">高雄市區</span>
-                </div>
               </div>
 
               <div class="profile-block">
@@ -770,21 +910,20 @@
 
           <div id="resume-en" class="resume-version">
             <div class="resume-grid">
+              <div class="profile-block feature">
+                <h3>Service Positioning</h3>
+                <p>I provide short-hour in-home play companion and temporary childcare support in Kaohsiung, helping children feel gently accompanied while parents can take a well-deserved moment for themselves.</p>
+              </div>
+
               <div class="profile-block">
                 <h3>Service Overview</h3>
                 <ul>
                   <li>I currently work as a play companion for a 1-year-old mixed-race baby boy</li>
                   <li>I have also helped relatives and friends care for children aged around 2–6</li>
                   <li>I offer in-home play companion and temporary childcare services in Kaohsiung</li>
-                  <li>Locations near Sanduo Shopping District are preferred, especially within around 10 minutes by scooter</li>
-                  <li>Schedule is flexible and can be discussed based on your family’s needs</li>
+                  <li>Locations near Sanduo Shopping District are preferred</li>
+                  <li>Final schedule and details will be confirmed by message</li>
                 </ul>
-                <div class="tag-list">
-                  <span class="tag">In-home childcare</span>
-                  <span class="tag">Play companion</span>
-                  <span class="tag">Mandarin / English / Taiwanese</span>
-                  <span class="tag">Kaohsiung</span>
-                </div>
               </div>
 
               <div class="profile-block">
@@ -856,39 +995,140 @@
         </div>
       </section>
 
+      <section id="availability" class="page">
+        <header class="hero">
+          <h1 class="hero-title-small">Felicia's Available Time</h1>
+          <div class="decor-line"><span class="decor-symbol">⌁</span></div>
+          <div class="subtitle">
+            到宅陪玩 ‧ 臨托服務 ‧ 高雄市區 ‧ 彈性時段<br />
+            Mandarin &amp; English Bilingual Childcare
+          </div>
+          <div class="date-range" id="rangeLabel">--</div>
+        </header>
+
+        <p class="availability-note">
+          可點選下方時間，選取想詢問的實際時段。<br />
+          本頁顯示為可詢問時段，實際安排仍以 Felicia 私訊確認為準。
+        </p>
+
+        <div id="state" class="state">Loading availability...</div>
+        <div id="calendarWrap" class="calendar-wrap" hidden>
+          <div id="calendar" class="calendar"></div>
+        </div>
+
+        <footer class="meta">
+          <div class="sync" id="lastSynced">資料同步時間：--</div>
+          <div class="notice">
+            最晚須於預約日前一天 22:00 前確認，臨時取消亦同。<br />
+            Final arrangements should be confirmed by 22:00 the day before.
+          </div>
+        </footer>
+
+        <div id="floatingBasket" class="floating-basket">
+          <div class="basket-count" id="basketCount">已選 0 個時段</div>
+          <div class="basket-actions">
+            <button type="button" class="secondary-btn" id="reviewBasketBtn">查看 / 修改</button>
+            <button type="button" class="primary-btn" id="sendLineBtn">LINE 詢問</button>
+          </div>
+        </div>
+      </section>
+
       <section id="gallery" class="page content-page">
         <div class="section-title">
           <h2>Certificates &amp; Moments</h2>
-          <p>之後可放托育人員課程結業證書、保母證照、陪伴小孩的照片或家長回饋。現在先預留瀑布牆版位。</p>
+          <p>證書、陪伴紀錄與家長回饋。涉及孩子的照片皆以取得同意、保護隱私為原則。</p>
         </div>
 
         <div class="gallery-card">
-          <div class="gallery-grid">
-            <article class="gallery-item">
-              <div class="gallery-placeholder" style="--h: 210px;">Certificate<br />Coming Soon</div>
-              <div class="gallery-caption">托育人員課程結業證書預留位置</div>
-            </article>
-            <article class="gallery-item">
-              <div class="gallery-placeholder" style="--h: 270px;">Nanny License<br />Planned</div>
-              <div class="gallery-caption">保母證照預留位置</div>
-            </article>
-            <article class="gallery-item">
-              <div class="gallery-placeholder" style="--h: 190px;">Childcare<br />Photo</div>
-              <div class="gallery-caption">照顧互動照片，建議避開小孩正臉或先取得家長同意</div>
-            </article>
-            <article class="gallery-item">
-              <div class="gallery-placeholder" style="--h: 245px;">Reading Time</div>
-              <div class="gallery-caption">共讀、玩具、活動紀錄等生活感素材</div>
-            </article>
-            <article class="gallery-item">
-              <div class="gallery-placeholder" style="--h: 180px;">Parent<br />Feedback</div>
-              <div class="gallery-caption">家長回饋截圖或文字推薦預留位置</div>
-            </article>
+          <div class="gallery-section">
+            <h3>Certificates</h3>
+            <div class="gallery-grid">
+              <article class="gallery-item">
+                <img src="images/certificate_childcare_redacted.jpg" alt="托育人員課程結業證書" />
+                <div class="gallery-caption">兒童及少年福利機構專業人員訓練結業證書（個資已遮蔽）</div>
+              </article>
+            </div>
+          </div>
+
+          <div class="gallery-section">
+            <h3>Childcare Moments</h3>
+            <div class="gallery-grid">
+              <article class="gallery-item">
+                <img src="images/moment_01.jpg" alt="戶外陪伴與散步紀錄" />
+                <div class="gallery-caption">戶外散步與陪伴時光</div>
+              </article>
+              <article class="gallery-item">
+                <img src="images/moment_02.jpg" alt="親子館陪伴紀錄" />
+                <div class="gallery-caption">親子館互動與陪玩紀錄</div>
+              </article>
+            </div>
+          </div>
+
+          <div class="gallery-section">
+            <h3>Parent Feedback</h3>
+            <div class="gallery-grid">
+              <article class="gallery-item">
+                <img src="images/feedback_01.jpg" alt="家長回饋截圖" />
+                <div class="gallery-caption">已取得同意的家長回饋截圖</div>
+              </article>
+              <article class="gallery-item">
+                <div class="feedback-card">
+                  「Feli 今天謝謝你的支援，孩子很喜歡你唷，期待下次再請你來幫忙🥰」
+                  <small>Parent feedback sample</small>
+                </div>
+                <div class="gallery-caption">未來可放更多家長回饋或文字推薦</div>
+              </article>
+            </div>
           </div>
         </div>
       </section>
     </section>
   </main>
+
+  <div id="slotModal" class="modal-backdrop" aria-hidden="true">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="slotModalTitle">
+      <h3 id="slotModalTitle">選擇詢問時段</h3>
+      <p id="slotModalDate">--</p>
+      <p id="slotModalWindow">網站顯示可詢問時段：--</p>
+
+      <div class="field-row">
+        <label>
+          開始時間
+          <select id="startSelect"></select>
+        </label>
+        <label>
+          結束時間
+          <select id="endSelect"></select>
+        </label>
+      </div>
+
+      <div class="modal-note">
+        ・開始時間不能早於網站顯示的可詢問時段<br />
+        ・結束時間不能晚於網站顯示的可詢問時段<br />
+        ・最短詢問時長為 2 小時<br />
+        ・最晚須於預約日前一天 22:00 前確認，臨時取消亦同
+      </div>
+      <div id="slotWarning" class="warning"></div>
+
+      <div class="modal-actions">
+        <button type="button" class="secondary-btn" id="cancelSlotBtn">取消</button>
+        <button type="button" class="primary-btn" id="addSlotBtn">加入詢問清單</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="basketModal" class="modal-backdrop" aria-hidden="true">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="basketModalTitle">
+      <h3 id="basketModalTitle">已選詢問時段</h3>
+      <div id="selectedList" class="selected-list"></div>
+      <div class="modal-actions">
+        <button type="button" class="secondary-btn" id="clearBasketBtn">全部清除</button>
+        <button type="button" class="secondary-btn" id="closeBasketBtn">繼續查看</button>
+        <button type="button" class="primary-btn" id="sendLineBtnModal">複製後用 LINE 詢問</button>
+      </div>
+    </div>
+  </div>
+
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
 
   <script>
@@ -896,6 +1136,9 @@
     const LINE_URL = "https://line.me/ti/p/Qo5p54Zsqn";
     const WEEKDAYS = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
     const WEEKDAYS_WITH_DOT = ["Sun.", "Mon.", "Tue.", "Wed.", "Thu.", "Fri.", "Sat."];
+
+    const selectedSlots = [];
+    let currentSlotContext = null;
 
     function setupNavigation() {
       document.querySelectorAll("[data-page-target]").forEach(button => {
@@ -911,6 +1154,33 @@
           const target = button.dataset.langTarget;
           document.querySelectorAll("[data-lang-target]").forEach(item => item.classList.toggle("active", item === button));
           document.querySelectorAll(".resume-version").forEach(version => version.classList.toggle("active", version.id === `resume-${target}`));
+        });
+      });
+    }
+
+    function setupModals() {
+      document.getElementById("cancelSlotBtn").addEventListener("click", closeSlotModal);
+      document.getElementById("addSlotBtn").addEventListener("click", addCurrentSlot);
+      document.getElementById("startSelect").addEventListener("change", updateSlotValidation);
+      document.getElementById("endSelect").addEventListener("change", updateSlotValidation);
+
+      document.getElementById("reviewBasketBtn").addEventListener("click", openBasketModal);
+      document.getElementById("closeBasketBtn").addEventListener("click", closeBasketModal);
+      document.getElementById("clearBasketBtn").addEventListener("click", () => {
+        selectedSlots.length = 0;
+        updateBasket();
+        renderSelectedList();
+        closeBasketModal();
+      });
+      document.getElementById("sendLineBtn").addEventListener("click", sendInquiryToLine);
+      document.getElementById("sendLineBtnModal").addEventListener("click", sendInquiryToLine);
+
+      document.querySelectorAll(".modal-backdrop").forEach(backdrop => {
+        backdrop.addEventListener("click", event => {
+          if (event.target === backdrop) {
+            closeSlotModal();
+            closeBasketModal();
+          }
         });
       });
     }
@@ -941,11 +1211,6 @@
       });
     }
 
-    function parseDate(dateString) {
-      const [year, month, day] = String(dateString).split("-").map(Number);
-      return new Date(year, month - 1, day);
-    }
-
     function formatDateKey(date) {
       const year = date.getFullYear();
       const month = String(date.getMonth() + 1).padStart(2, "0");
@@ -963,52 +1228,6 @@
 
     function formatBookingDate(date) {
       return `${formatFullDate(date)} (${WEEKDAYS_WITH_DOT[date.getDay()]})`;
-    }
-
-    function buildBookingMessage(date, timeText) {
-      const bookingDate = formatBookingDate(date);
-      return `想預約 ${bookingDate} 的 ${timeText}，請問是否還有空檔？
-Hi Felicia, I would like to book ${bookingDate} ${timeText}. Is this time still available?`;
-    }
-
-    function showToast(message) {
-      const toast = document.getElementById("toast");
-      toast.textContent = message;
-      toast.classList.add("show");
-      clearTimeout(showToast.timer);
-      showToast.timer = setTimeout(() => toast.classList.remove("show"), 3200);
-    }
-
-    async function copyText(text) {
-      if (navigator.clipboard && window.isSecureContext) {
-        await navigator.clipboard.writeText(text);
-        return true;
-      }
-
-      const textarea = document.createElement("textarea");
-      textarea.value = text;
-      textarea.setAttribute("readonly", "");
-      textarea.style.position = "fixed";
-      textarea.style.left = "-9999px";
-      document.body.appendChild(textarea);
-      textarea.select();
-      const success = document.execCommand("copy");
-      textarea.remove();
-      return success;
-    }
-
-    async function handleBookingClick(date, timeText) {
-      const message = buildBookingMessage(date, timeText);
-      try {
-        await copyText(message);
-        showToast("已複製預約訊息，即將開啟 LINE。 / Booking message copied. Opening LINE...");
-      } catch (error) {
-        showToast("複製失敗，仍會開啟 LINE。 / Copy failed, but LINE will still open.");
-      }
-
-      window.setTimeout(() => {
-        window.location.href = LINE_URL;
-      }, 1500);
     }
 
     function addMonths(date, months) {
@@ -1043,6 +1262,11 @@ Hi Felicia, I would like to book ${bookingDate} ${timeText}. Is this time still 
       return dates;
     }
 
+    function parseDate(dateString) {
+      const [year, month, day] = String(dateString).split("-").map(Number);
+      return new Date(year, month - 1, day);
+    }
+
     function normalizeStatus(status) {
       return String(status || "").trim().toLowerCase();
     }
@@ -1050,6 +1274,17 @@ Hi Felicia, I would like to book ${bookingDate} ${timeText}. Is this time still 
     function normalizeTimeText(startTime, endTime) {
       if (!startTime || !endTime) return "";
       return `${String(startTime).trim()}–${String(endTime).trim()}`;
+    }
+
+    function parseTimeToMinutes(timeText) {
+      const [hour, minute] = String(timeText).trim().split(":").map(Number);
+      return hour * 60 + (minute || 0);
+    }
+
+    function minutesToTime(minutes) {
+      const hour = Math.floor(minutes / 60);
+      const minute = String(minutes % 60).padStart(2, "0");
+      return `${hour}:${minute}`;
     }
 
     function getPillClass(timeText) {
@@ -1074,6 +1309,173 @@ Hi Felicia, I would like to book ${bookingDate} ${timeText}. Is this time still 
       return element;
     }
 
+    function showToast(message) {
+      const toast = document.getElementById("toast");
+      toast.textContent = message;
+      toast.classList.add("show");
+      clearTimeout(showToast.timer);
+      showToast.timer = setTimeout(() => toast.classList.remove("show"), 3200);
+    }
+
+    function openSlotModal(context) {
+      currentSlotContext = context;
+      const startSelect = document.getElementById("startSelect");
+      const endSelect = document.getElementById("endSelect");
+      startSelect.innerHTML = "";
+      endSelect.innerHTML = "";
+
+      const start = parseTimeToMinutes(context.startTime);
+      const end = parseTimeToMinutes(context.endTime);
+
+      for (let minute = start; minute <= end - 30; minute += 30) {
+        startSelect.appendChild(new Option(minutesToTime(minute), minute));
+      }
+
+      for (let minute = start + 30; minute <= end; minute += 30) {
+        endSelect.appendChild(new Option(minutesToTime(minute), minute));
+      }
+
+      startSelect.value = String(start);
+      const defaultEnd = Math.min(start + 120, end);
+      endSelect.value = String(defaultEnd);
+
+      document.getElementById("slotModalDate").textContent = context.bookingDate;
+      document.getElementById("slotModalWindow").textContent = `網站顯示可詢問時段：${context.displayText}`;
+      updateSlotValidation();
+
+      document.getElementById("slotModal").classList.add("show");
+      document.getElementById("slotModal").setAttribute("aria-hidden", "false");
+    }
+
+    function closeSlotModal() {
+      document.getElementById("slotModal").classList.remove("show");
+      document.getElementById("slotModal").setAttribute("aria-hidden", "true");
+    }
+
+    function updateSlotValidation() {
+      const start = Number(document.getElementById("startSelect").value);
+      const end = Number(document.getElementById("endSelect").value);
+      const warning = document.getElementById("slotWarning");
+      const addButton = document.getElementById("addSlotBtn");
+
+      let message = "";
+      if (end <= start) message = "結束時間需晚於開始時間";
+      else if (end - start < 120) message = "最短詢問時長為 2 小時";
+
+      warning.textContent = message;
+      addButton.disabled = Boolean(message);
+      addButton.style.opacity = message ? "0.48" : "1";
+      addButton.style.cursor = message ? "not-allowed" : "pointer";
+    }
+
+    function addCurrentSlot() {
+      if (!currentSlotContext) return;
+
+      const start = Number(document.getElementById("startSelect").value);
+      const end = Number(document.getElementById("endSelect").value);
+      if (end <= start || end - start < 120) return;
+
+      const item = {
+        id: `${currentSlotContext.dateKey}-${start}-${end}-${Date.now()}`,
+        date: currentSlotContext.date,
+        dateKey: currentSlotContext.dateKey,
+        bookingDate: currentSlotContext.bookingDate,
+        start: minutesToTime(start),
+        end: minutesToTime(end),
+        sourceWindow: currentSlotContext.displayText
+      };
+
+      selectedSlots.push(item);
+      updateBasket();
+      closeSlotModal();
+      showToast("已加入詢問清單");
+    }
+
+    function updateBasket() {
+      const count = selectedSlots.length;
+      const basket = document.getElementById("floatingBasket");
+      document.getElementById("basketCount").textContent = `已選 ${count} 個時段`;
+      basket.classList.toggle("show", count > 0);
+    }
+
+    function openBasketModal() {
+      renderSelectedList();
+      document.getElementById("basketModal").classList.add("show");
+      document.getElementById("basketModal").setAttribute("aria-hidden", "false");
+    }
+
+    function closeBasketModal() {
+      document.getElementById("basketModal").classList.remove("show");
+      document.getElementById("basketModal").setAttribute("aria-hidden", "true");
+    }
+
+    function renderSelectedList() {
+      const list = document.getElementById("selectedList");
+      list.innerHTML = "";
+
+      if (selectedSlots.length === 0) {
+        list.appendChild(createElement("p", "", "目前尚未選擇任何時段。"));
+        return;
+      }
+
+      selectedSlots.forEach((item, index) => {
+        const row = createElement("div", "selected-item");
+        row.appendChild(createElement("div", "", `${index + 1}. ${item.bookingDate} ${item.start}–${item.end}`));
+        const remove = createElement("button", "remove-btn", "移除");
+        remove.type = "button";
+        remove.addEventListener("click", () => {
+          const itemIndex = selectedSlots.findIndex(slot => slot.id === item.id);
+          if (itemIndex >= 0) selectedSlots.splice(itemIndex, 1);
+          updateBasket();
+          renderSelectedList();
+        });
+        row.appendChild(remove);
+        list.appendChild(row);
+      });
+    }
+
+    function buildInquiryMessage() {
+      const lines = selectedSlots.map((item, index) => `${index + 1}. ${item.bookingDate} ${item.start}–${item.end}`);
+      return `Hi Felicia，我想詢問以下時段是否方便安排：\n\n${lines.join("\n")}\n\n謝謝！`;
+    }
+
+    async function copyText(text) {
+      if (navigator.clipboard && window.isSecureContext) {
+        await navigator.clipboard.writeText(text);
+        return true;
+      }
+
+      const textarea = document.createElement("textarea");
+      textarea.value = text;
+      textarea.setAttribute("readonly", "");
+      textarea.style.position = "fixed";
+      textarea.style.left = "-9999px";
+      document.body.appendChild(textarea);
+      textarea.select();
+      const success = document.execCommand("copy");
+      textarea.remove();
+      return success;
+    }
+
+    async function sendInquiryToLine() {
+      if (selectedSlots.length === 0) {
+        showToast("請先選擇至少一個想詢問的時段");
+        return;
+      }
+
+      const message = buildInquiryMessage();
+      try {
+        await copyText(message);
+        showToast("已複製詢問內容，即將開啟 LINE。");
+      } catch (error) {
+        showToast("複製失敗，仍會開啟 LINE。");
+      }
+
+      window.setTimeout(() => {
+        window.location.href = LINE_URL;
+      }, 1500);
+    }
+
     function renderCalendar(data) {
       const calendar = document.getElementById("calendar");
       const calendarWrap = document.getElementById("calendarWrap");
@@ -1092,16 +1494,16 @@ Hi Felicia, I would like to book ${bookingDate} ${timeText}. Is this time still 
       rangeLabel.textContent = `${formatFullDate(start)} – ${formatFullDate(end)}`;
       lastSynced.textContent = `資料同步時間：${data.lastSynced || "--"}`;
 
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+
       dates.forEach(date => {
         const key = formatDateKey(date);
         const rows = scheduleByDate.get(key) || [];
         const isWeekend = date.getDay() === 0 || date.getDay() === 6;
         const isHoliday = holidaySet.has(key);
-        const weekday = WEEKDAYS[date.getDay()];
-
-        const today = new Date();
-        today.setHours(0, 0, 0, 0);
         const isPast = date < today;
+        const weekday = WEEKDAYS[date.getDay()];
 
         const dayCell = createElement("div", `day${isWeekend || isHoliday ? " is-red" : ""}${isPast ? " is-past" : ""}`);
         dayCell.setAttribute("data-weekday", weekday);
@@ -1116,13 +1518,20 @@ Hi Felicia, I would like to book ${bookingDate} ${timeText}. Is this time still 
           availableRows.forEach(row => {
             const text = normalizeTimeText(row.startTime, row.endTime);
             const slotRow = createElement("div", "slot-row");
-            slotRow.appendChild(createElement("div", `pill ${getPillClass(text)}`, text));
-
-            const button = createElement("button", "book-slot", "預約");
-            button.type = "button";
-            button.addEventListener("click", () => handleBookingClick(date, text));
-            slotRow.appendChild(button);
-
+            const pill = createElement("button", `pill ${getPillClass(text)}`, text);
+            pill.type = "button";
+            pill.setAttribute("aria-label", `選擇 ${formatBookingDate(date)} ${text}`);
+            pill.addEventListener("click", () => {
+              openSlotModal({
+                date,
+                dateKey: key,
+                bookingDate: formatBookingDate(date),
+                displayText: text,
+                startTime: row.startTime,
+                endTime: row.endTime
+              });
+            });
+            slotRow.appendChild(pill);
             slots.appendChild(slotRow);
           });
         } else if (rows.some(row => ["full", "unavailable"].includes(normalizeStatus(row.status)))) {
@@ -1139,8 +1548,7 @@ Hi Felicia, I would like to book ${bookingDate} ${timeText}. Is this time still 
 
     async function init() {
       setupNavigation();
-      const lineBookingLink = document.getElementById("lineBookingLink");
-      lineBookingLink.href = LINE_URL;
+      setupModals();
 
       const state = document.getElementById("state");
       try {
