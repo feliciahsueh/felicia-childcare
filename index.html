@@ -139,6 +139,8 @@
       flex-wrap: wrap;
     }
 
+    .btn-zh, .btn-en { display: inline; }
+
     .nav button, .lang-toggle button, .secondary-btn, .primary-btn {
       border: 1px solid var(--line-strong);
       background: rgba(255, 250, 244, 0.66);
@@ -615,10 +617,6 @@
     }
 
     .selected-item {
-      display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 10px;
-      align-items: center;
       padding: 12px;
       border: 1px solid var(--line);
       border-radius: 16px;
@@ -627,13 +625,40 @@
       line-height: 1.6;
     }
 
-    .remove-btn {
-      border: 0;
+    .selected-top,
+    .selected-bottom {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .selected-date,
+    .selected-duration { text-align: left; }
+
+    .selected-time,
+    .selected-actions { text-align: right; }
+
+    .selected-time { font-weight: 700; }
+
+    .selected-actions {
+      display: inline-flex;
+      justify-content: flex-end;
+      gap: 8px;
+    }
+
+    .icon-btn {
+      width: 30px;
+      height: 30px;
+      border: 1px solid var(--line-strong);
       border-radius: 999px;
-      background: #f2d7c1;
+      background: #f7e6d7;
       color: #6b3b23;
-      padding: 7px 11px;
       cursor: pointer;
+      font-size: 17px;
+      line-height: 1;
+      display: inline-grid;
+      place-items: center;
     }
 
     .toast {
@@ -675,7 +700,11 @@
       .brand-mark { width: 38px; height: 38px; }
       .brand-text { font-size: 16px; }
       .nav { width: 100%; display: grid; grid-template-columns: repeat(3, 1fr); gap: 7px; }
-      .nav button { padding: 9px 6px; font-size: 13px; }
+      .nav button { padding: 9px 6px; font-size: 13px; line-height: 1.25; }
+      .nav button .btn-en,
+      .secondary-btn .btn-en,
+      .primary-btn .btn-en,
+      .lang-toggle button .btn-en { display: block; }
       .hero { padding: 10px 6px 14px; }
       .hero-title-small { font-size: 25px; white-space: nowrap; letter-spacing: 0.01em; }
       .decor-line::before, .decor-line::after { width: 70px; }
@@ -790,13 +819,13 @@
           <span class="brand-text">Felicia Childcare</span>
         </div>
         <nav class="nav" aria-label="Page navigation">
-          <button type="button" class="active" data-page-target="about">關於我 / About</button>
-          <button type="button" data-page-target="availability">查看空檔 / Availability</button>
-          <button type="button" data-page-target="gallery">證書與照片 / Gallery</button>
+          <button type="button" class="active" data-page-target="availability"><span class="btn-zh">查看空檔 /</span> <span class="btn-en">Availability</span></button>
+          <button type="button" data-page-target="about"><span class="btn-zh">關於我 /</span> <span class="btn-en">About</span></button>
+          <button type="button" data-page-target="gallery"><span class="btn-zh">證書與照片 /</span> <span class="btn-en">Gallery</span></button>
         </nav>
       </div>
 
-      <section id="about" class="page active content-page">
+      <section id="about" class="page content-page">
         <header class="hero">
           <h1>Felicia Childcare</h1>
           <div class="decor-line"><span class="decor-symbol">⌁</span></div>
@@ -995,23 +1024,27 @@
         </div>
       </section>
 
-      <section id="availability" class="page">
+      <section id="availability" class="page active">
         <header class="hero">
           <h1 class="hero-title-small">Felicia's Available Time</h1>
-          <div class="decor-line"><span class="decor-symbol">⌁</span></div>
           <div class="subtitle">
             到宅陪玩 ‧ 臨托服務 ‧ 高雄市區 ‧ 彈性時段<br />
             Mandarin &amp; English Bilingual Childcare
           </div>
+          <div class="decor-line"><span class="decor-symbol">⌁</span></div>
           <div class="date-range" id="rangeLabel">--</div>
         </header>
 
         <p class="availability-note">
-          可點選下方時間，選取想詢問的實際時段。<br />
-          本頁顯示為可詢問時段，實際安排仍以 Felicia 私訊確認為準。
+          本頁顯示未來一個月的可詢問時段，<br />
+          請點選日期並選取您的需求時間。<br />
+          實際安排以 Felicia 私訊確認為準。<br /><br />
+          This page shows the available times for the upcoming month.<br />
+          Please select a date and choose your preferred time.<br />
+          Final arrangements will be confirmed with Felicia by message.
         </p>
 
-        <div id="state" class="state">Loading availability...</div>
+        <div id="state" class="state">正在載入可詢問時段…<br />Loading availability…</div>
         <div id="calendarWrap" class="calendar-wrap" hidden>
           <div id="calendar" class="calendar"></div>
         </div>
@@ -1019,16 +1052,18 @@
         <footer class="meta">
           <div class="sync" id="lastSynced">資料同步時間：--</div>
           <div class="notice">
-            最晚須於預約日前一天 22:00 前確認，臨時取消亦同。<br />
-            Final arrangements should be confirmed by 22:00 the day before.
+            最晚須於預約日前一天 22:00 前確認，<br />
+            臨時取消亦同。<br /><br />
+            Please confirm your booking by 22:00 on the day before the service date.<br />
+            The same deadline applies to cancellations.
           </div>
         </footer>
 
         <div id="floatingBasket" class="floating-basket">
-          <div class="basket-count" id="basketCount">已選 0 個時段</div>
+          <div class="basket-count" id="basketCount">已選 0 個時段 / 0 slots selected</div>
           <div class="basket-actions">
-            <button type="button" class="secondary-btn" id="reviewBasketBtn">查看 / 修改</button>
-            <button type="button" class="primary-btn" id="sendLineBtn">LINE 詢問</button>
+            <button type="button" class="secondary-btn" id="reviewBasketBtn"><span class="btn-zh">查看 / 修改</span><span class="btn-en">Review / Edit</span></button>
+            <button type="button" class="primary-btn" id="sendLineBtn"><span class="btn-zh">複製後用 LINE 詢問</span><span class="btn-en">Copy &amp; Ask via LINE</span></button>
           </div>
         </div>
       </section>
@@ -1089,42 +1124,44 @@
     <div class="modal" role="dialog" aria-modal="true" aria-labelledby="slotModalTitle">
       <h3 id="slotModalTitle">選擇詢問時段</h3>
       <p id="slotModalDate">--</p>
-      <p id="slotModalWindow">網站顯示可詢問時段：--</p>
+      <p id="slotModalWindow">本日可詢問時段：--</p>
 
       <div class="field-row">
         <label>
-          開始時間
+          開始時間 / Start time
           <select id="startSelect"></select>
         </label>
         <label>
-          結束時間
+          結束時間 / End time
           <select id="endSelect"></select>
         </label>
       </div>
 
       <div class="modal-note">
-        ・開始時間不能早於網站顯示的可詢問時段<br />
-        ・結束時間不能晚於網站顯示的可詢問時段<br />
-        ・最短詢問時長為 2 小時<br />
-        ・最晚須於預約日前一天 22:00 前確認，臨時取消亦同
+        ・需求時間須落在網站顯示的可選時段內<br />
+        &nbsp;&nbsp;Requested time must fall within the available times shown on the website.<br /><br />
+        ・每次最短詢問時長為 2 小時<br />
+        &nbsp;&nbsp;The minimum inquiry duration is 2 hours.<br /><br />
+        ・當天如有緊急需求，請直接聯繫 Felicia<br />
+        &nbsp;&nbsp;For last-minute assistance, please contact Felicia directly.
       </div>
       <div id="slotWarning" class="warning"></div>
 
       <div class="modal-actions">
-        <button type="button" class="secondary-btn" id="cancelSlotBtn">取消</button>
-        <button type="button" class="primary-btn" id="addSlotBtn">加入詢問清單</button>
+        <button type="button" class="secondary-btn" id="cancelSlotBtn"><span class="btn-zh">取消</span><span class="btn-en">Cancel</span></button>
+        <button type="button" class="primary-btn" id="addSlotBtn"><span class="btn-zh">加入詢問清單</span><span class="btn-en">Add to inquiry list</span></button>
       </div>
     </div>
   </div>
 
   <div id="basketModal" class="modal-backdrop" aria-hidden="true">
     <div class="modal" role="dialog" aria-modal="true" aria-labelledby="basketModalTitle">
-      <h3 id="basketModalTitle">已選詢問時段</h3>
+      <h3 id="basketModalTitle">已選詢問時段 / Selected time slots</h3>
       <div id="selectedList" class="selected-list"></div>
       <div class="modal-actions">
-        <button type="button" class="secondary-btn" id="clearBasketBtn">全部清除</button>
-        <button type="button" class="secondary-btn" id="closeBasketBtn">繼續查看</button>
-        <button type="button" class="primary-btn" id="sendLineBtnModal">複製後用 LINE 詢問</button>
+        <button type="button" class="secondary-btn" id="clearBasketBtn"><span class="btn-zh">全部清除</span><span class="btn-en">Clear all</span></button>
+        <button type="button" class="secondary-btn" id="closeBasketBtn"><span class="btn-zh">繼續查看</span><span class="btn-en">Continue browsing</span></button>
+        <button type="button" class="primary-btn" id="sendLineBtnModal"><span class="btn-zh">複製後用 LINE 詢問</span><span class="btn-en">Copy &amp; Ask via LINE</span></button>
       </div>
     </div>
   </div>
@@ -1136,18 +1173,38 @@
     const LINE_URL = "https://line.me/ti/p/Qo5p54Zsqn";
     const WEEKDAYS = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
     const WEEKDAYS_WITH_DOT = ["Sun.", "Mon.", "Tue.", "Wed.", "Thu.", "Fri.", "Sat."];
+    const VALID_PAGES = ["availability", "about", "gallery"];
+    const MAX_SELECTED_SLOTS = 10;
+    const MIN_DURATION_MINUTES = 120;
+    const MIN_GAP_MINUTES = 120;
 
     const selectedSlots = [];
     let currentSlotContext = null;
+    let editingSlotId = null;
+
+    function activatePage(target, updateHash = true) {
+      const page = VALID_PAGES.includes(target) ? target : "availability";
+      document.querySelectorAll("[data-page-target]").forEach(button => {
+        button.classList.toggle("active", button.dataset.pageTarget === page);
+      });
+      document.querySelectorAll(".page").forEach(section => {
+        section.classList.toggle("active", section.id === page);
+      });
+      if (updateHash && window.location.hash !== `#${page}`) {
+        history.replaceState(null, "", `#${page}`);
+      }
+    }
 
     function setupNavigation() {
       document.querySelectorAll("[data-page-target]").forEach(button => {
-        button.addEventListener("click", () => {
-          const target = button.dataset.pageTarget;
-          document.querySelectorAll("[data-page-target]").forEach(item => item.classList.toggle("active", item === button));
-          document.querySelectorAll(".page").forEach(page => page.classList.toggle("active", page.id === target));
-        });
+        button.addEventListener("click", () => activatePage(button.dataset.pageTarget));
       });
+
+      window.addEventListener("hashchange", () => {
+        activatePage(window.location.hash.replace("#", ""), false);
+      });
+
+      activatePage(window.location.hash.replace("#", "") || "availability", false);
 
       document.querySelectorAll("[data-lang-target]").forEach(button => {
         button.addEventListener("click", () => {
@@ -1160,7 +1217,7 @@
 
     function setupModals() {
       document.getElementById("cancelSlotBtn").addEventListener("click", closeSlotModal);
-      document.getElementById("addSlotBtn").addEventListener("click", addCurrentSlot);
+      document.getElementById("addSlotBtn").addEventListener("click", addOrUpdateCurrentSlot);
       document.getElementById("startSelect").addEventListener("change", updateSlotValidation);
       document.getElementById("endSelect").addEventListener("change", updateSlotValidation);
 
@@ -1241,14 +1298,11 @@
     function getCalendarRange() {
       const today = new Date();
       today.setHours(0, 0, 0, 0);
-
       const start = new Date(today);
       start.setDate(today.getDate() - today.getDay());
-
       const baseEnd = addMonths(today, 1);
       const end = new Date(baseEnd);
       end.setDate(baseEnd.getDate() + (6 - baseEnd.getDay()));
-
       return { start, end };
     }
 
@@ -1260,11 +1314,6 @@
         cursor.setDate(cursor.getDate() + 1);
       }
       return dates;
-    }
-
-    function parseDate(dateString) {
-      const [year, month, day] = String(dateString).split("-").map(Number);
-      return new Date(year, month - 1, day);
     }
 
     function normalizeStatus(status) {
@@ -1285,6 +1334,12 @@
       const hour = Math.floor(minutes / 60);
       const minute = String(minutes % 60).padStart(2, "0");
       return `${hour}:${minute}`;
+    }
+
+    function formatDuration(startTime, endTime) {
+      const minutes = parseTimeToMinutes(endTime) - parseTimeToMinutes(startTime);
+      const hours = minutes / 60;
+      return `${Number.isInteger(hours) ? hours : hours.toFixed(1)} hr`;
     }
 
     function getPillClass(timeText) {
@@ -1314,11 +1369,10 @@
       toast.textContent = message;
       toast.classList.add("show");
       clearTimeout(showToast.timer);
-      showToast.timer = setTimeout(() => toast.classList.remove("show"), 3200);
+      showToast.timer = setTimeout(() => toast.classList.remove("show"), 4200);
     }
 
-    function openSlotModal(context) {
-      currentSlotContext = context;
+    function populateTimeSelects(context, startValue, endValue) {
       const startSelect = document.getElementById("startSelect");
       const endSelect = document.getElementById("endSelect");
       startSelect.innerHTML = "";
@@ -1330,19 +1384,30 @@
       for (let minute = start; minute <= end - 30; minute += 30) {
         startSelect.appendChild(new Option(minutesToTime(minute), minute));
       }
-
       for (let minute = start + 30; minute <= end; minute += 30) {
         endSelect.appendChild(new Option(minutesToTime(minute), minute));
       }
 
-      startSelect.value = String(start);
-      const defaultEnd = Math.min(start + 120, end);
-      endSelect.value = String(defaultEnd);
+      startSelect.value = String(startValue ?? start);
+      endSelect.value = String(endValue ?? Math.min(start + MIN_DURATION_MINUTES, end));
+    }
+
+    function openSlotModal(context, existingItem = null) {
+      currentSlotContext = context;
+      editingSlotId = existingItem ? existingItem.id : null;
+
+      populateTimeSelects(
+        context,
+        existingItem ? parseTimeToMinutes(existingItem.start) : null,
+        existingItem ? parseTimeToMinutes(existingItem.end) : null
+      );
 
       document.getElementById("slotModalDate").textContent = context.bookingDate;
-      document.getElementById("slotModalWindow").textContent = `網站顯示可詢問時段：${context.displayText}`;
-      updateSlotValidation();
+      document.getElementById("slotModalWindow").textContent = `本日可詢問時段：${context.displayText}`;
+      document.querySelector("#addSlotBtn .btn-zh").textContent = existingItem ? "儲存修改" : "加入詢問清單";
+      document.querySelector("#addSlotBtn .btn-en").textContent = existingItem ? "Save changes" : "Add to inquiry list";
 
+      updateSlotValidation();
       document.getElementById("slotModal").classList.add("show");
       document.getElementById("slotModal").setAttribute("aria-hidden", "false");
     }
@@ -1350,17 +1415,56 @@
     function closeSlotModal() {
       document.getElementById("slotModal").classList.remove("show");
       document.getElementById("slotModal").setAttribute("aria-hidden", "true");
+      currentSlotContext = null;
+      editingSlotId = null;
+    }
+
+    function getSameDateConflict(dateKey, start, end, ignoreId = null) {
+      const sameDateSlots = selectedSlots.filter(item => item.dateKey === dateKey && item.id !== ignoreId);
+
+      for (const item of sameDateSlots) {
+        const otherStart = parseTimeToMinutes(item.start);
+        const otherEnd = parseTimeToMinutes(item.end);
+
+        const overlaps = start < otherEnd && end > otherStart;
+        if (overlaps) return "overlap";
+
+        const gap = end <= otherStart ? otherStart - end : start - otherEnd;
+        if (gap < MIN_GAP_MINUTES) return "gap";
+      }
+      return "";
+    }
+
+    function getValidationMessage() {
+      if (!currentSlotContext) return "";
+
+      const start = Number(document.getElementById("startSelect").value);
+      const end = Number(document.getElementById("endSelect").value);
+
+      if (end <= start) {
+        return "結束時間需晚於開始時間 / End time must be later than start time.";
+      }
+      if (end - start < MIN_DURATION_MINUTES) {
+        return "每次最短詢問時長為 2 小時 / The minimum inquiry duration is 2 hours.";
+      }
+
+      const conflict = getSameDateConflict(currentSlotContext.dateKey, start, end, editingSlotId);
+      if (conflict === "overlap") {
+        return "此日期選取的時段有重疊，請修改。 / The selected time slots for this date overlap. Please adjust them.";
+      }
+      if (conflict === "gap") {
+        return "同一日期的詢問時段之間須至少間隔 2 小時，請修改。 / Time slots on the same date must be at least 2 hours apart. Please adjust them.";
+      }
+      if (!editingSlotId && selectedSlots.length >= MAX_SELECTED_SLOTS) {
+        return "一次最多可詢問 10 個時段。 / You can select up to 10 time slots per inquiry.";
+      }
+      return "";
     }
 
     function updateSlotValidation() {
-      const start = Number(document.getElementById("startSelect").value);
-      const end = Number(document.getElementById("endSelect").value);
       const warning = document.getElementById("slotWarning");
       const addButton = document.getElementById("addSlotBtn");
-
-      let message = "";
-      if (end <= start) message = "結束時間需晚於開始時間";
-      else if (end - start < 120) message = "最短詢問時長為 2 小時";
+      const message = getValidationMessage();
 
       warning.textContent = message;
       addButton.disabled = Boolean(message);
@@ -1368,33 +1472,52 @@
       addButton.style.cursor = message ? "not-allowed" : "pointer";
     }
 
-    function addCurrentSlot() {
+    function addOrUpdateCurrentSlot() {
       if (!currentSlotContext) return;
+
+      const message = getValidationMessage();
+      if (message) {
+        document.getElementById("slotWarning").textContent = message;
+        return;
+      }
 
       const start = Number(document.getElementById("startSelect").value);
       const end = Number(document.getElementById("endSelect").value);
-      if (end <= start || end - start < 120) return;
 
-      const item = {
-        id: `${currentSlotContext.dateKey}-${start}-${end}-${Date.now()}`,
-        date: currentSlotContext.date,
-        dateKey: currentSlotContext.dateKey,
-        bookingDate: currentSlotContext.bookingDate,
-        start: minutesToTime(start),
-        end: minutesToTime(end),
-        sourceWindow: currentSlotContext.displayText
-      };
+      if (editingSlotId) {
+        const item = selectedSlots.find(slot => slot.id === editingSlotId);
+        if (item) {
+          item.start = minutesToTime(start);
+          item.end = minutesToTime(end);
+          item.sourceWindow = currentSlotContext.displayText;
+          item.sourceStart = currentSlotContext.startTime;
+          item.sourceEnd = currentSlotContext.endTime;
+        }
+        showToast("已更新詢問時段 / Inquiry time updated.");
+      } else {
+        selectedSlots.push({
+          id: `${currentSlotContext.dateKey}-${start}-${end}-${Date.now()}`,
+          date: currentSlotContext.date,
+          dateKey: currentSlotContext.dateKey,
+          bookingDate: currentSlotContext.bookingDate,
+          start: minutesToTime(start),
+          end: minutesToTime(end),
+          sourceWindow: currentSlotContext.displayText,
+          sourceStart: currentSlotContext.startTime,
+          sourceEnd: currentSlotContext.endTime
+        });
+        showToast("已加入詢問清單 / Added to inquiry list.");
+      }
 
-      selectedSlots.push(item);
       updateBasket();
       closeSlotModal();
-      showToast("已加入詢問清單");
+      renderSelectedList();
     }
 
     function updateBasket() {
       const count = selectedSlots.length;
       const basket = document.getElementById("floatingBasket");
-      document.getElementById("basketCount").textContent = `已選 ${count} 個時段`;
+      document.getElementById("basketCount").textContent = `已選 ${count} 個時段 / ${count} slots selected`;
       basket.classList.toggle("show", count > 0);
     }
 
@@ -1414,29 +1537,70 @@
       list.innerHTML = "";
 
       if (selectedSlots.length === 0) {
-        list.appendChild(createElement("p", "", "目前尚未選擇任何時段。"));
+        list.appendChild(createElement("p", "", "目前尚未選擇任何時段。 / No time slots selected yet."));
         return;
       }
 
-      selectedSlots.forEach((item, index) => {
-        const row = createElement("div", "selected-item");
-        row.appendChild(createElement("div", "", `${index + 1}. ${item.bookingDate} ${item.start}–${item.end}`));
-        const remove = createElement("button", "remove-btn", "移除");
-        remove.type = "button";
-        remove.addEventListener("click", () => {
-          const itemIndex = selectedSlots.findIndex(slot => slot.id === item.id);
-          if (itemIndex >= 0) selectedSlots.splice(itemIndex, 1);
-          updateBasket();
-          renderSelectedList();
+      selectedSlots
+        .slice()
+        .sort((a, b) => a.dateKey.localeCompare(b.dateKey) || parseTimeToMinutes(a.start) - parseTimeToMinutes(b.start))
+        .forEach((item, index) => {
+          const row = createElement("div", "selected-item");
+
+          const top = createElement("div", "selected-top");
+          top.appendChild(createElement("div", "selected-date", `${index + 1}. ${item.bookingDate}`));
+          top.appendChild(createElement("div", "selected-time", `${item.start}–${item.end}`));
+
+          const bottom = createElement("div", "selected-bottom");
+          bottom.appendChild(createElement("div", "selected-duration", formatDuration(item.start, item.end)));
+
+          const actions = createElement("div", "selected-actions");
+          const edit = createElement("button", "icon-btn", "✎");
+          edit.type = "button";
+          edit.setAttribute("aria-label", "修改時段 / Edit time slot");
+          edit.addEventListener("click", () => {
+            closeBasketModal();
+            openSlotModal({
+              date: item.date,
+              dateKey: item.dateKey,
+              bookingDate: item.bookingDate,
+              displayText: item.sourceWindow,
+              startTime: item.sourceStart,
+              endTime: item.sourceEnd
+            }, item);
+          });
+
+          const remove = createElement("button", "icon-btn", "−");
+          remove.type = "button";
+          remove.setAttribute("aria-label", "移除時段 / Remove time slot");
+          remove.addEventListener("click", () => {
+            const itemIndex = selectedSlots.findIndex(slot => slot.id === item.id);
+            if (itemIndex >= 0) selectedSlots.splice(itemIndex, 1);
+            updateBasket();
+            renderSelectedList();
+          });
+
+          actions.appendChild(edit);
+          actions.appendChild(remove);
+          bottom.appendChild(actions);
+
+          row.appendChild(top);
+          row.appendChild(bottom);
+          list.appendChild(row);
         });
-        row.appendChild(remove);
-        list.appendChild(row);
-      });
     }
 
     function buildInquiryMessage() {
-      const lines = selectedSlots.map((item, index) => `${index + 1}. ${item.bookingDate} ${item.start}–${item.end}`);
-      return `Hi Felicia，我想詢問以下時段是否方便安排：\n\n${lines.join("\n")}\n\n謝謝！`;
+      const sorted = selectedSlots
+        .slice()
+        .sort((a, b) => a.dateKey.localeCompare(b.dateKey) || parseTimeToMinutes(a.start) - parseTimeToMinutes(b.start));
+      const lines = sorted.map((item, index) => `${index + 1}. ${item.bookingDate} ${item.start}–${item.end}`);
+      return `Hi Felicia，我想詢問以下時段是否方便安排：
+
+${lines.join("
+")}
+
+謝謝！`;
     }
 
     async function copyText(text) {
@@ -1459,21 +1623,24 @@
 
     async function sendInquiryToLine() {
       if (selectedSlots.length === 0) {
-        showToast("請先選擇至少一個想詢問的時段");
+        showToast("請先選擇至少一個想詢問的時段 / Please select at least one time slot.");
         return;
       }
 
       const message = buildInquiryMessage();
       try {
         await copyText(message);
-        showToast("已複製詢問內容，即將開啟 LINE。");
+        showToast("已複製詢問內容，即將開啟 LINE。
+開啟後可直接貼上訊息。
+Inquiry copied. LINE will open shortly.
+Please paste the message directly.");
       } catch (error) {
-        showToast("複製失敗，仍會開啟 LINE。");
+        showToast("複製失敗，仍會開啟 LINE。 / Copy failed, but LINE will still open.");
       }
 
       window.setTimeout(() => {
         window.location.href = LINE_URL;
-      }, 1500);
+      }, 2000);
     }
 
     function renderCalendar(data) {
@@ -1555,7 +1722,8 @@
         const data = await loadJsonp(API_URL);
         renderCalendar(data);
       } catch (error) {
-        state.textContent = "Unable to load availability. Please try again later.";
+        state.textContent = "無法載入可詢問時段，請稍後再試。
+Unable to load availability. Please try again later.";
         console.error(error);
       }
     }
