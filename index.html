@@ -139,7 +139,15 @@
       flex-wrap: wrap;
     }
 
-    .btn-zh, .btn-en, .btn-slash, .btn-gap { display: inline; }
+    .btn-zh, .btn-en, .btn-gap { display: inline; }
+
+    .nav button .btn-en,
+    .secondary-btn .btn-en,
+    .primary-btn .btn-en {
+      display: block;
+      margin-top: 2px;
+      font-size: 0.88em;
+    }
 
     .modal-title-en {
       font-size: 0.72em;
@@ -516,7 +524,7 @@
       display: none;
       align-items: flex-start;
       justify-content: space-between;
-      gap: 10px;
+      gap: 12px;
       margin: 16px auto 0;
       padding: 12px;
       border: 1px solid rgba(215, 186, 163, 0.86);
@@ -528,9 +536,31 @@
 
     .floating-basket.show { display: flex; }
 
-    .basket-count { font-weight: 700; color: #4a2e19; }
+    .basket-count {
+      font-weight: 700;
+      color: #4a2e19;
+      min-width: 138px;
+      line-height: 1.35;
+      padding-top: 2px;
+    }
 
-    .basket-actions { display: flex; gap: 8px; flex-wrap: wrap; justify-content: flex-end; }
+    .basket-actions {
+      display: grid;
+      grid-template-columns: 1fr 1.35fr;
+      gap: 8px;
+      justify-content: stretch;
+      align-items: stretch;
+      flex: 1;
+    }
+
+    .basket-actions .secondary-btn,
+    .basket-actions .primary-btn {
+      width: 100%;
+      min-height: 50px;
+      text-align: center;
+      line-height: 1.25;
+      padding: 8px 10px;
+    }
 
     /* Gallery */
     .gallery-section { margin-bottom: 24px; }
@@ -655,7 +685,17 @@
       margin: 10px 0;
     }
 
-    .warning { color: #b45309; font-weight: 700; min-height: 22px; }
+    .warning {
+      color: #b45309;
+      font-weight: 700;
+      min-height: 0;
+      margin: 0 0 8px;
+      line-height: 1.55;
+    }
+
+    .warning:empty {
+      margin: 0;
+    }
 
     .modal-actions {
       display: flex;
@@ -692,10 +732,12 @@
     .selected-date,
     .selected-duration { text-align: left; }
 
-    .selected-time,
     .selected-actions { text-align: right; }
 
-    .selected-time { font-weight: 700; }
+    .selected-time {
+      font-weight: 700;
+      text-align: left;
+    }
 
     .selected-actions {
       display: inline-flex;
@@ -758,17 +800,12 @@
       .brand-text { font-size: 16px; }
       .nav { width: 100%; display: grid; grid-template-columns: repeat(3, 1fr); gap: 7px; }
       .nav button { padding: 9px 6px; font-size: 13px; line-height: 1.25; }
-      .nav button .btn-en,
-      .secondary-btn .btn-en,
-      .primary-btn .btn-en,
       .lang-toggle button .btn-en { display: block; }
 
-      .nav button .btn-slash { display: none; }
       .secondary-btn .btn-gap,
       .primary-btn .btn-gap { display: none; }
 
       .en-copy {
-        white-space: nowrap;
         font-size: 12px;
         letter-spacing: -0.01em;
       }
@@ -873,6 +910,8 @@
       .pill { width: min(132px, 100%); font-size: 12.5px; }
       .nav button { font-size: 12px; }
       .field-row { grid-template-columns: 1fr; }
+      .modal-actions .secondary-btn,
+      .modal-actions .primary-btn { min-height: 50px; line-height: 1.25; }
     }
   </style>
 </head>
@@ -886,9 +925,9 @@
           <span class="brand-text">Felicia Childcare</span>
         </div>
         <nav class="nav" aria-label="Page navigation">
-          <button type="button" class="active" data-page-target="availability"><span class="btn-zh">查看空檔</span><span class="btn-slash"> / </span><span class="btn-en">Availability</span></button>
-          <button type="button" data-page-target="about"><span class="btn-zh">關於我</span><span class="btn-slash"> / </span><span class="btn-en">About</span></button>
-          <button type="button" data-page-target="gallery"><span class="btn-zh">證書與照片</span><span class="btn-slash"> / </span><span class="btn-en">Gallery</span></button>
+          <button type="button" class="active" data-page-target="availability"><span class="btn-zh">查看空檔</span><span class="btn-en">Availability</span></button>
+          <button type="button" data-page-target="about"><span class="btn-zh">關於我</span><span class="btn-en">About</span></button>
+          <button type="button" data-page-target="gallery"><span class="btn-zh">證書與照片</span><span class="btn-en">Gallery</span></button>
         </nav>
       </div>
 
@@ -1108,7 +1147,11 @@
             請點選日期並選取您的需求時間。<br />
             實際安排以 Felicia 私訊確認為準。
           </p>
-          <p class="en-copy">This page shows the available times for the upcoming month. Please select a date and choose your preferred time. Final arrangements will be confirmed with Felicia by message.</p>
+          <p class="en-copy">
+            This page shows the available times for the upcoming month.<br />
+            Please select a date and choose your preferred time.<br />
+            Final arrangements will be confirmed with Felicia by message.
+          </p>
         </div>
 
         <div id="state" class="state">正在載入可詢問時段…<br />Loading availability…</div>
@@ -1205,6 +1248,8 @@
         </label>
       </div>
 
+      <div id="slotWarning" class="warning"></div>
+
       <div class="modal-note bilingual-rules">
         <p class="bilingual-rule">
           ・需求時間須落在網站顯示的可選時段內
@@ -1219,7 +1264,6 @@
           <span class="en">For last-minute assistance, please contact Felicia directly.</span>
         </p>
       </div>
-      <div id="slotWarning" class="warning"></div>
 
       <div class="modal-actions">
         <button type="button" class="secondary-btn" id="cancelSlotBtn"><span class="btn-zh">取消</span><span class="btn-gap"> </span><span class="btn-en">Cancel</span></button>
@@ -1705,7 +1749,7 @@
       const message = buildInquiryMessage();
       try {
         await copyText(message);
-        showToast("已複製詢問內容，即將開啟 LINE。\n開啟後可直接貼上訊息。\nInquiry copied. LINE will open shortly.\nPlease paste the message directly.");
+        showToast("已複製詢問時段，可直接在 LINE 貼上訊息。\nInquiry copied. Please paste the message via LINE.");
       } catch (error) {
         showToast("複製失敗，仍會開啟 LINE。 / Copy failed, but LINE will still open.");
       }
@@ -1751,7 +1795,7 @@
         const slots = createElement("div", "slots");
         const availableRows = rows
           .filter(row => normalizeStatus(row.status) === "available")
-          .sort((a, b) => String(a.startTime || "").localeCompare(String(b.startTime || "")));
+          .sort((a, b) => parseTimeToMinutes(a.startTime || "0:00") - parseTimeToMinutes(b.startTime || "0:00"));
 
         if (availableRows.length > 0) {
           availableRows.forEach(row => {
