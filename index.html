@@ -289,6 +289,27 @@
       text-align: center;
     }
 
+    .intro-bullets {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 8px;
+      margin: 0 auto;
+      text-align: left;
+    }
+
+    .intro-bullets span {
+      display: block;
+    }
+
+    .price-emphasis {
+      font-family: var(--font-serif);
+      font-size: clamp(26px, 3vw, 36px);
+      line-height: 1.1;
+      color: #3a210f;
+      margin: 6px 0 10px;
+    }
+
     .content-page { padding: 18px 8px 6px; }
 
     .section-title {
@@ -596,6 +617,21 @@
       margin: 0 0 14px;
       color: #3a210f;
       text-align: center;
+    }
+
+    .certificate-placeholder {
+      min-height: 240px;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      padding: 22px;
+      background:
+        linear-gradient(135deg, rgba(255, 237, 213, 0.9), rgba(255, 250, 244, 0.9)),
+        radial-gradient(circle at 20% 20%, #fff, transparent 30%);
+      color: #7d6654;
+      font-family: var(--font-serif);
+      font-size: 21px;
+      line-height: 1.45;
     }
 
     .gallery-grid {
@@ -916,6 +952,7 @@
       .resume-card, .gallery-card { padding: 16px; }
       .profile-block { padding: 16px; }
       .gallery-grid { columns: 1; }
+      .gallery-section h3 { font-size: 24px; }
       .floating-basket {
         position: fixed;
         left: 12px;
@@ -960,16 +997,18 @@
       <section id="about" class="page content-page">
         <header class="hero">
           <h1>Felicia Childcare</h1>
-          <div class="decor-line"><span class="decor-symbol">⌁</span></div>
           <div class="subtitle">
             到宅陪玩・臨托服務｜高雄市區・中英雙語<br />
             Mandarin &amp; English Bilingual Childcare
           </div>
-          <p class="intro-lede">
-            提供高雄市區到宅陪玩與臨托服務，可使用中文、英文與台語溝通。<br />
-            適合需要短時段支援，也希望在照顧孩子之餘，為自己保留一點 me time 的爸爸媽媽。<br />
-            無論是想專心處理工作、短暫休息，或偶爾安排一場不被打擾的兩人約會，都能放心讓我陪伴孩子度過一段安心、自在的時光。
-          </p>
+          <div class="decor-line"><span class="decor-symbol">⌁</span></div>
+          <div class="intro-lede">
+            <div class="intro-bullets">
+              <span>・中文、英文與台語皆可溝通</span>
+              <span>・陪伴孩子度過自在、安心的時光</span>
+              <span>・讓爸媽能專心處理工作、短暫休息，或為自己保留一點 me time</span>
+            </div>
+          </div>
         </header>
 
         <div class="resume-card">
@@ -998,7 +1037,7 @@
                   <li>也曾協助親戚與朋友照顧小孩，年齡約 2～6 歲都有</li>
                   <li>提供到宅陪玩 / 臨托服務，地點以高雄市區為主</li>
                   <li>三多商圈附近兩站內佳，騎車約 10 分鐘內可配合</li>
-                  <li>時間可彈性討論，實際安排以私訊確認為準</li>
+                  <li>時間可彈性討論，目前可安排日期與時段請參考「查看空檔」</li>
                 </ul>
               </div>
 
@@ -1007,7 +1046,7 @@
                 <ul>
                   <li>政治大學國貿系、廣告系雙主修</li>
                   <li>曾任資訊服務業 PM（專案經理）</li>
-                  <li>2026/4 完成托育人員課程並取得結業證書（可提供）</li>
+                  <li>2026/4 完成托育人員課程並取得結業證書</li>
                   <li>目前準備 6 月底保母證照考試，取得後將申請到宅托育服務登記</li>
                 </ul>
               </div>
@@ -1033,7 +1072,7 @@
 
               <div class="profile-block">
                 <h3>目前收費</h3>
-                <p><strong>$350 / hr</strong></p>
+                <p class="price-emphasis"><strong>$350 / hr</strong></p>
                 <ul>
                   <li>最少 2 小時</li>
                   <li>3 小時 $1,000</li>
@@ -1042,7 +1081,7 @@
 
               <div class="profile-block">
                 <h3>取得保母證照後（預計）</h3>
-                <p><strong>$400 / hr</strong></p>
+                <p class="price-emphasis"><strong>$400 / hr</strong></p>
                 <ul>
                   <li>最少 2 小時</li>
                   <li>4 小時 $1,500</li>
@@ -1054,7 +1093,7 @@
                 <ul>
                   <li>不抽菸</li>
                   <li>陪伴期間不使用 3C</li>
-                  <li>家長若有特殊需求或習慣，也都可以提前討論配合</li>
+                  <li>若有特殊需求或習慣，也都可以提前討論配合</li>
                 </ul>
               </div>
 
@@ -1083,7 +1122,7 @@
                   <li>I have also helped relatives and friends care for children aged around 2–6</li>
                   <li>I offer in-home play companion and temporary childcare services in Kaohsiung</li>
                   <li>Locations near Sanduo Shopping District are preferred</li>
-                  <li>Final schedule and details will be confirmed by message</li>
+                  <li>Please refer to the Availability page for available dates and times</li>
                 </ul>
               </div>
 
@@ -1208,7 +1247,12 @@
       <section id="gallery" class="page content-page">
         <div class="section-title">
           <h2>Certificates &amp; Moments</h2>
-          <p>證書、陪伴紀錄與家長回饋。涉及孩子的照片皆以取得同意、保護隱私為原則。</p>
+          <p>
+            證書、陪伴紀錄與家長回饋。<br />
+            涉及孩子的照片皆已取得同意、保護隱私為原則。<br />
+            Certificates, childcare moments, and parent feedback.<br />
+            Photos involving children are shared with consent and with privacy in mind.
+          </p>
         </div>
 
         <div class="gallery-card">
@@ -1216,8 +1260,15 @@
             <h3>Certificates</h3>
             <div class="gallery-grid">
               <article class="gallery-item">
-                <img src="images/certificate_childcare_redacted.jpg" alt="托育人員課程結業證書" />
-                <div class="gallery-caption">兒童及少年福利機構專業人員訓練結業證書（個資已遮蔽）</div>
+                <img src="images/certificate_childcare_redacted.jpg" alt="托育人員專業訓練課程 126 小時結業證書" />
+                <div class="gallery-caption">托育人員專業訓練課程 126 小時結業證書</div>
+              </article>
+              <article class="gallery-item">
+                <div class="certificate-placeholder">
+                  托育人員技術士證照<br />
+                  <span style="font-family: var(--font-sans); font-size: 14px; color: #8b7462;">取得後更新</span>
+                </div>
+                <div class="gallery-caption">托育人員技術士證照｜取得後更新</div>
               </article>
             </div>
           </div>
@@ -1240,15 +1291,10 @@
             <h3>Parent Feedback</h3>
             <div class="gallery-grid">
               <article class="gallery-item">
-                <img src="images/feedback_01.jpg" alt="家長回饋截圖" />
-                <div class="gallery-caption">已取得同意的家長回饋截圖</div>
+                <img src="images/feedback_01.jpg" alt="家長回饋截圖 1" />
               </article>
               <article class="gallery-item">
-                <div class="feedback-card">
-                  「Feli 今天謝謝你的支援，孩子很喜歡你唷，期待下次再請你來幫忙🥰」
-                  <small>Parent feedback sample</small>
-                </div>
-                <div class="gallery-caption">未來可放更多家長回饋或文字推薦</div>
+                <img src="images/feedback_02.jpg" alt="家長回饋截圖 2" />
               </article>
             </div>
           </div>

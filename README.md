@@ -1,6 +1,11 @@
-# Felicia Childcare Website — Button Layout Fix
+# Felicia Childcare Website — About & Gallery Update
 
-This package fixes bilingual button layout:
-- Chinese appears on the first row
-- English appears on the second row
-- Applies to top tabs, time-selection modal, floating inquiry bar, and selected inquiry modal
+Updates:
+- About hero separator moved below bilingual subtitle
+- About intro changed to bullet style
+- About copy refinements
+- Rate display enlarged
+- Gallery intro and categories refined
+- Certificate caption updated
+- Certificate placeholder added
+- Parent feedback updated for feedback_01.jpg and feedback_02.jpg
