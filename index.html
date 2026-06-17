@@ -507,6 +507,87 @@
     .sync { font-weight: 600; white-space: nowrap; }
     .notice { text-align: right; }
 
+
+    .usage-guide {
+      max-width: 860px;
+      margin: 34px auto 0;
+      padding-top: 24px;
+      border-top: 1px solid rgba(222, 214, 204, 0.72);
+      color: var(--muted);
+    }
+
+    .usage-guide-heading {
+      margin-bottom: 14px;
+      text-align: center;
+    }
+
+    .usage-guide-heading h3 {
+      margin: 0;
+      color: var(--text);
+      font-family: var(--font-serif);
+      font-size: clamp(24px, 3vw, 34px);
+      font-weight: 400;
+      letter-spacing: 0.02em;
+    }
+
+    .usage-guide-heading p {
+      margin: 4px 0 0;
+      color: var(--muted);
+      font-size: 13px;
+      letter-spacing: 0;
+    }
+
+    .usage-item {
+      border-bottom: 1px solid rgba(222, 214, 204, 0.66);
+    }
+
+    .usage-item:first-of-type {
+      border-top: 1px solid rgba(222, 214, 204, 0.66);
+    }
+
+    .usage-item summary {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 16px;
+      align-items: center;
+      padding: 18px 0;
+      color: var(--text);
+      font-weight: 600;
+      line-height: 1.55;
+      list-style: none;
+      cursor: pointer;
+    }
+
+    .usage-item summary::-webkit-details-marker { display: none; }
+
+    .usage-item summary::after {
+      content: "+";
+      color: var(--brand-dark);
+      font-size: 22px;
+      font-weight: 400;
+      line-height: 1;
+      transition: transform 180ms ease;
+    }
+
+    .usage-item[open] summary::after {
+      content: "−";
+    }
+
+    .usage-answer {
+      padding: 0 0 20px;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.85;
+    }
+
+    .usage-answer p {
+      margin: 0;
+    }
+
+    .usage-answer p + p {
+      margin-top: 8px;
+    }
+
     .floating-basket {
       position: sticky;
       z-index: 1;
@@ -1229,6 +1310,33 @@
 
       .notice { text-align: left; }
 
+
+      .usage-guide {
+        margin-top: 30px;
+        padding-top: 22px;
+      }
+
+      .usage-guide-heading {
+        text-align: left;
+        margin-bottom: 10px;
+      }
+
+      .usage-guide-heading h3 {
+        font-size: 26px;
+      }
+
+      .usage-item summary {
+        padding: 17px 0;
+        gap: 12px;
+        font-size: 14px;
+      }
+
+      .usage-answer {
+        padding-bottom: 18px;
+        font-size: 13px;
+        line-height: 1.78;
+      }
+
       .floating-basket {
         position: fixed;
         left: 12px;
@@ -1456,6 +1564,74 @@
       letter-spacing: 0 !important;
       font-kerning: normal;
       text-rendering: optimizeLegibility;
+    }
+
+
+    /* =========================================================
+       13 v12 refinements: Availability notes, mobile wordmark, Gallery feedback
+       ========================================================= */
+    #gallery .section-title p {
+      font-size: 14px;
+      line-height: 1.8;
+    }
+
+    footer.meta {
+      padding-top: 24px;
+      border-top: 1px solid rgba(222, 214, 204, 0.88);
+    }
+
+    .usage-guide,
+    .usage-guide-heading {
+      text-align: left;
+    }
+
+    .feedback-item img {
+      width: 100%;
+      display: block;
+      padding: 0 !important;
+      border: 0 !important;
+      border-radius: 0 !important;
+      background: transparent !important;
+      box-shadow: none !important;
+    }
+
+    @media (min-width: 761px) {
+      .usage-guide {
+        margin-left: 0;
+        margin-right: auto;
+      }
+
+      .feedback-layout {
+        max-width: 1080px;
+        display: grid;
+        grid-template-columns: repeat(12, 1fr);
+        gap: 28px;
+        align-items: start;
+      }
+
+      .feedback-item:nth-child(1) {
+        grid-column: 1 / span 5;
+      }
+
+      .feedback-item:nth-child(2) {
+        grid-column: 7 / span 5;
+        margin-top: 54px;
+      }
+
+      .feedback-item img {
+        aspect-ratio: 4 / 5;
+        object-fit: contain;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .brand {
+        justify-self: center;
+      }
+
+      .brand-logo {
+        object-position: center center;
+      }
     }
 
   </style>
@@ -1698,6 +1874,30 @@
             <p class="en-copy">Please confirm your booking by 22:00 on the day before the service date. The same deadline applies to cancellations.</p>
           </div>
         </footer>
+
+
+        <section class="usage-guide" aria-label="使用說明 / How to use">
+          <div class="usage-guide-heading">
+            <h3>使用說明</h3>
+            <p class="en-copy">How to use</p>
+          </div>
+
+          <details class="usage-item">
+            <summary>可以一天選兩個分開時段嗎？ / Can I select two separate time slots on the same day?</summary>
+            <div class="usage-answer bilingual-copy">
+              <p>可以。同一天可選擇多個時段；每個時段至少 2 小時，且同一天的兩個詢問時段之間需至少間隔 2 小時。例如：11:00–14:00 與 17:00–21:00 可以一起加入詢問。</p>
+              <p class="en-copy">Yes. You may select multiple time slots on the same day. Each slot must be at least 2 hours, and separate slots on the same day must be at least 2 hours apart. For example, 11:00–14:00 and 17:00–21:00 can be added to the same inquiry.</p>
+            </div>
+          </details>
+
+          <details class="usage-item">
+            <summary>選好時段後，如何用 LINE 詢問？ / How do I send my inquiry via LINE?</summary>
+            <div class="usage-answer bilingual-copy">
+              <p>選好需求時間後，請點選「加入詢問」。系統會開啟「已選詢問時段」視窗，確認無誤後點選「複製後用 LINE 詢問」，即可將詢問內容貼到 LINE 傳送給 Felicia。</p>
+              <p class="en-copy">After choosing your preferred time, tap “Add to inquiry.” The selected time slots window will open. Once everything looks correct, tap “Copy &amp; Ask via LINE” to paste and send your inquiry to Felicia.</p>
+            </div>
+          </details>
+        </section>
 
         <div id="floatingBasket" class="floating-basket">
           <div class="basket-count" id="basketCount"><span class="basket-count-zh">已選 0 個時段</span><span class="basket-count-en">0 slots selected</span></div>
