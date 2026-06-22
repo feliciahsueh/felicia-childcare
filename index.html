@@ -1,10 +1,11 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="zh-Hant">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Felicia Childcare</title>
-  <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Felicia Childcare</title>
+<style>
     /* =========================================================
        01 Design Tokens
        ========================================================= */
@@ -482,6 +483,23 @@
       line-height: 1;
     }
 
+    .unavailable-state {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .availability-day-note {
+      color: var(--brand-dark);
+      font-size: 14px;
+      font-weight: 600;
+      line-height: 1.15;
+      letter-spacing: 0;
+      white-space: nowrap;
+    }
+
     .state {
       padding: 34px 12px;
       border: 1px solid rgba(222, 214, 204, 0.7);
@@ -798,6 +816,61 @@
     .principle-list strong {
       color: var(--text);
       font-weight: 600;
+    }
+
+    .details-side {
+      display: flex;
+      flex-direction: column;
+      gap: 34px;
+    }
+
+    .about-faq {
+      margin-top: 0;
+      padding-top: 28px;
+      border-top: 1px solid rgba(222, 214, 204, 0.72);
+    }
+
+    .about-faq h4 {
+      margin: 0 0 22px;
+      color: var(--text);
+      font-family: var(--font-serif);
+      font-size: clamp(23px, 2.6vw, 32px);
+      font-weight: 400;
+      line-height: 1.08;
+    }
+
+    .about-faq-list {
+      display: grid;
+      gap: 0;
+    }
+
+    .about-faq-item {
+      padding-top: 20px;
+      margin-top: 20px;
+      border-top: 1px solid rgba(222, 214, 204, 0.54);
+    }
+
+    .about-faq-item:first-child {
+      padding-top: 0;
+      margin-top: 0;
+      border-top: 0;
+    }
+
+    .about-faq-item h5 {
+      margin: 0 0 8px;
+      color: var(--text);
+      font-family: var(--font-sans);
+      font-size: 15px;
+      font-weight: 600;
+      line-height: 1.75;
+      letter-spacing: 0.01em;
+    }
+
+    .about-faq-item p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.88;
     }
 
     /* =========================================================
@@ -1297,10 +1370,25 @@
         font-size: 14px !important;
       }
 
+      #availability .unavailable-state {
+        width: 100%;
+        min-height: 36px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-end;
+        gap: 8px;
+      }
+
       #availability .no-availability {
-        grid-column: 3;
         margin-top: 0;
-        text-align: left;
+        line-height: 36px;
+        text-align: right;
+      }
+
+      #availability .availability-day-note {
+        font-size: 14px;
+        line-height: 36px;
       }
 
       footer.meta {
@@ -1542,6 +1630,10 @@
         font-size: 12.5px !important;
       }
 
+      #availability .availability-day-note {
+        font-size: 12.5px;
+      }
+
       .field-row { grid-template-columns: 1fr; }
 
       .modal-actions .secondary-btn,
@@ -1634,355 +1726,381 @@
       }
     }
 
+  
+
+    /* =========================================================
+       14 v14 refinements: Taipei note, FAQ typography and mobile order
+       ========================================================= */
+    @media (max-width: 760px) {
+      .details-row .details-copy {
+        order: 1;
+      }
+
+      .details-row .details-side {
+        order: 2;
+        display: flex;
+        flex-direction: column;
+        gap: 28px;
+      }
+
+      .details-side .editorial-image {
+        order: 1;
+      }
+
+      .details-side .about-faq {
+        order: 2;
+        margin-top: 0;
+      }
+
+      .about-faq h4 {
+        font-size: 25px;
+      }
+
+      .about-faq-item h5,
+      .about-faq-item p {
+        font-size: 14px;
+        line-height: 1.8;
+      }
+    }
+
   </style>
 </head>
-
 <body>
-  <main class="site">
-    <section class="shell">
-      <div class="topbar">
-        <a class="brand" href="#availability" aria-label="Felicia Childcare home" data-page-target="availability">
-          <img
-            class="brand-logo"
-            src="images/felicia-childcare-wordmark-transparent.png"
-            alt="Felicia Childcare"
-            onerror="this.style.display='none';this.nextElementSibling.style.display='inline-block';"
-          />
-          <span class="brand-text-fallback">Felicia Childcare</span>
-        </a>
-        <nav class="nav" aria-label="Page navigation">
-          <button type="button" class="active" data-page-target="availability"><span class="btn-zh">查看空檔</span><span class="btn-en">Availability</span></button>
-          <button type="button" data-page-target="about"><span class="btn-zh">關於我</span><span class="btn-en">About</span></button>
-          <button type="button" data-page-target="gallery"><span class="btn-zh">證書與照片</span><span class="btn-en">Gallery</span></button>
-        </nav>
-      </div>
-
-      <section id="about" class="page content-page">
-        <header class="hero about-hero">
-          <div class="about-logo-wrap">
-            <img class="about-logo" src="images/felicia-childcare-logo-transparent-600.png" alt="Felicia Childcare logo" onerror="this.onerror=null;this.src='images/felicia-childcare-logo-light-bg-600.png';" />
-          </div>
-          <div class="subtitle">
-            到宅陪玩與臨托服務 ‧ 高雄市區 ‧ 中英雙語<br />
+<main class="site">
+<section class="shell">
+<div class="topbar">
+<a aria-label="Felicia Childcare home" class="brand" data-page-target="availability" href="#availability">
+<img alt="Felicia Childcare" class="brand-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-block';" src="images/felicia-childcare-wordmark-transparent.png"/>
+<span class="brand-text-fallback">Felicia Childcare</span>
+</a>
+<nav aria-label="Page navigation" class="nav">
+<button class="active" data-page-target="availability" type="button"><span class="btn-zh">查看空檔</span><span class="btn-en">Availability</span></button>
+<button data-page-target="about" type="button"><span class="btn-zh">關於我</span><span class="btn-en">About</span></button>
+<button data-page-target="gallery" type="button"><span class="btn-zh">證書與照片</span><span class="btn-en">Gallery</span></button>
+</nav>
+</div>
+<section class="page content-page" id="about">
+<header class="hero about-hero">
+<div class="about-logo-wrap">
+<img alt="Felicia Childcare logo" class="about-logo" onerror="this.onerror=null;this.src='images/felicia-childcare-logo-light-bg-600.png';" src="images/felicia-childcare-logo-transparent-600.png"/>
+</div>
+<div class="subtitle">
+            到宅陪玩與臨托服務 ‧ 高雄市區 ‧ 中英雙語<br/>
             Mandarin &amp; English Childcare in Kaohsiung
           </div>
-        </header>
-
-        <div class="resume-card about-card">
-          <div class="lang-toggle" aria-label="Resume language">
-            <button type="button" class="active" data-lang-target="zh">中文</button>
-            <button type="button" data-lang-target="en">English</button>
-          </div>
-
-          <div id="resume-zh" class="resume-version active">
-            <div class="about-keynotes">
-              <span>中文、英文與台語皆可溝通</span>
-              <span>依照孩子的節奏陪伴，度過安心自在的時光</span>
-              <span>讓爸媽能專心處理工作、短暫休息，或為自己保留一點時間</span>
-            </div>
-
-            <div class="editorial-about">
-              <section class="about-editorial-row service-row">
-                <div class="editorial-copy">
-                  <span class="section-index">01</span>
-                  <h3>服務簡介</h3>
-                  <ul>
-                    <li>提供高雄市區到宅陪玩與臨托服務，捷運三多商圈站附近佳（前後兩站或車程約 10 分鐘內）</li>
-                    <li>最短詢問時長為 2 小時；目前可安排日期與時段，請參考「查看空檔」</li>
-                    <li>有嬰幼兒與 2–6 歲兒童陪伴與臨托經驗</li>
-                    <li>可協助陪玩、說故事、餵食（食物由家長提供）、安撫哄睡、換尿布、洗澡、散步或外出陪同</li>
-                    <li>若需用車接送，可提前討論安排</li>
-                  </ul>
-                </div>
-                <figure class="editorial-image"><img src="images/atmosphere_01.png" alt="Felicia Childcare atmosphere image 1" /></figure>
-              </section>
-
-              <section class="about-editorial-row care-row reverse">
-                <figure class="editorial-image"><img src="images/atmosphere_02.png" alt="Felicia Childcare atmosphere image 2" /></figure>
-                <div class="editorial-copy">
-                  <span class="section-index">02</span>
-                  <h3>關於我</h3>
-                  <ul>
-                    <li>政治大學國貿系、廣告系雙主修</li>
-                    <li>中文、英文與台語皆可溝通</li>
-                    <li>曾任資訊服務業專案經理，擅長溝通協調、有耐心且細心、應變能力快</li>
-                    <li>目前已完成托育人員專業訓練課程，並持續準備托育人員相關證照</li>
-                  </ul>
-                </div>
-              </section>
-
-              <section class="about-editorial-row details-row">
-                <div class="editorial-copy details-copy">
-                  <span class="section-index">03</span>
-                  <h3>Details</h3>
-
-                  <div class="detail-block">
-                    <h4>目前收費</h4>
-                    <p class="price-emphasis"><strong>$350 / hr</strong></p>
-                    <ul>
-                      <li>3 小時 $1,000，4 小時 $1,300</li>
-                      <li>一天最多 12 小時 $4,000</li>
-                      <li>實際費用會依時長、地點與需求內容討論確認</li>
-                    </ul>
-                    <p class="price-note">取得托育人員相關證照後，預計調整為 $400 / hr。<br />既有家庭的收費方式不變。</p>
-                  </div>
-
-                  <div class="detail-block">
-                    <h4>交通接送</h4>
-                    <p>若有用車接送需求，可由我自備車輛；兒童安全座椅需由家長提供。</p>
-                    <p>實際安排會依地點、時長與當日行程討論確認，並酌收車馬費或停車費。</p>
-                  </div>
-
-                  <div class="detail-block">
-                    <h4>其他</h4>
-                    <ul>
-                      <li>不抽菸</li>
-                      <li>陪伴期間不使用 3C 讓孩子觀看</li>
-                      <li>若孩子有特殊需求、生活習慣或照顧方式，都可以提前討論</li>
-                    </ul>
-                  </div>
-
-                  <div class="detail-block principles-detail">
-                    <h4>服務原則</h4>
-                    <div class="principle-list">
-                      <p><strong>安全第一</strong><br />以孩子的安全與基本需求為優先</p>
-                      <p><strong>溫和陪伴</strong><br />尊重孩子的節奏、情緒與熟悉感</p>
-                      <p><strong>清楚溝通</strong><br />與家長保持開放、可信任的溝通</p>
-                    </div>
-                  </div>
-                </div>
-                <figure class="editorial-image"><img src="images/atmosphere_03.png" alt="Felicia Childcare atmosphere image 3" /></figure>
-              </section>
-            </div>
-          </div>
-
-          <div id="resume-en" class="resume-version">
-            <div class="about-keynotes">
-              <span>Care available in Mandarin, English, and Taiwanese</span>
-              <span>Calm, responsive care that follows each child's pace</span>
-              <span>Flexible support for parents who need time to work, rest, or step away</span>
-            </div>
-
-            <div class="editorial-about">
-              <section class="about-editorial-row service-row">
-                <div class="editorial-copy">
-                  <span class="section-index">01</span>
-                  <h3>Service</h3>
-                  <ul>
-                    <li>Occasional in-home childcare and play-based care in Kaohsiung, ideally near Sanduo Shopping District Station, within about two MRT stops or a 10-minute ride</li>
-                    <li>Minimum inquiry duration: 2 hours. Please refer to Availability for current available dates and times</li>
-                    <li>Experience caring for infants, toddlers, and children around ages 2–6</li>
-                    <li>Care may include play, storytime, meals or snacks — food should be provided by the family — soothing, nap support, diaper changes, bathing, walks, and outings</li>
-                    <li>Pick-up or drop-off by car can be discussed in advance if needed</li>
-                  </ul>
-                </div>
-                <figure class="editorial-image"><img src="images/atmosphere_01.png" alt="Felicia Childcare atmosphere image 1" /></figure>
-              </section>
-
-              <section class="about-editorial-row care-row reverse">
-                <figure class="editorial-image"><img src="images/atmosphere_02.png" alt="Felicia Childcare atmosphere image 2" /></figure>
-                <div class="editorial-copy">
-                  <span class="section-index">02</span>
-                  <h3>About Me</h3>
-                  <ul>
-                    <li>Double majored in International Business and Advertising at National Chengchi University</li>
-                    <li>Comfortable communicating in Mandarin, English, and Taiwanese</li>
-                    <li>Former project manager in the information service industry, with strong communication and coordination skills, patience, attention to detail, and the ability to respond quickly</li>
-                    <li>Completed a 126-hour professional childcare training course and currently preparing for childcare-related certification</li>
-                  </ul>
-                </div>
-              </section>
-
-              <section class="about-editorial-row details-row">
-                <div class="editorial-copy details-copy">
-                  <span class="section-index">03</span>
-                  <h3>Details</h3>
-
-                  <div class="detail-block">
-                    <h4>Pricing</h4>
-                    <p class="price-emphasis"><strong>$350 / hr</strong></p>
-                    <ul>
-                      <li>3 hours: $1,000; 4 hours: $1,300</li>
-                      <li>Up to 12 hours per day: $4,000</li>
-                      <li>Final fee will be confirmed based on duration, location, and care needs</li>
-                    </ul>
-                    <p class="price-note">After I receive childcare-related certification, the rate is expected to be adjusted to $400 / hr.<br />Rates for existing families will remain unchanged.</p>
-                  </div>
-
-                  <div class="detail-block">
-                    <h4>Transportation</h4>
-                    <p>Pick-up or drop-off by car can be discussed if needed. A child safety seat should be provided by the family.</p>
-                    <p>Additional transportation or parking fees may apply depending on location, duration, and schedule.</p>
-                  </div>
-
-                  <div class="detail-block">
-                    <h4>Notes</h4>
-                    <ul>
-                      <li>I do not smoke</li>
-                      <li>I do not provide screen time during care</li>
-                      <li>Special needs, daily routines, and care preferences can be discussed in advance</li>
-                    </ul>
-                  </div>
-
-                  <div class="detail-block principles-detail">
-                    <h4>Care Principles</h4>
-                    <div class="principle-list">
-                      <p><strong>Safety first</strong><br />Prioritizing each child's safety and essential needs</p>
-                      <p><strong>Gentle companionship</strong><br />Respecting each child's rhythm, emotions, and sense of comfort</p>
-                      <p><strong>Clear communication</strong><br />Keeping communication open, clear, and trustworthy with families</p>
-                    </div>
-                  </div>
-                </div>
-                <figure class="editorial-image"><img src="images/atmosphere_03.png" alt="Felicia Childcare atmosphere image 3" /></figure>
-              </section>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section id="availability" class="page active">
-        <header class="hero availability-hero">
-          <h1 class="date-range availability-range-title" id="rangeLabel">--</h1>
-        </header>
-
-        <div class="availability-note bilingual-copy">
-          <p>
-            本頁顯示未來一個月的可詢問時段，<br />
-            請點選日期並選取您的需求時間。<br />
+</header>
+<div class="resume-card about-card">
+<div aria-label="Resume language" class="lang-toggle">
+<button class="active" data-lang-target="zh" type="button">中文</button>
+<button data-lang-target="en" type="button">English</button>
+</div>
+<div class="resume-version active" id="resume-zh">
+<div class="about-keynotes">
+<span>中文、英文與台語皆可溝通</span>
+<span>依照孩子的節奏陪伴，度過安心自在的時光</span>
+<span>讓爸媽能專心處理工作、短暫休息，或為自己保留一點時間</span>
+</div>
+<div class="editorial-about">
+<section class="about-editorial-row service-row">
+<div class="editorial-copy">
+<span class="section-index">01</span>
+<h3>服務簡介</h3>
+<ul>
+<li>提供高雄市區到宅陪玩與臨托服務，捷運三多商圈站附近佳（前後兩站或車程約 10 分鐘內）</li>
+<li>最短詢問時長為 2 小時；目前可安排日期與時段，請參考「查看空檔」</li>
+<li>有嬰幼兒與 2–6 歲兒童陪伴與臨托經驗</li>
+<li>可協助陪玩、說故事、餵食（食物由家長提供）、安撫哄睡、換尿布、洗澡、散步或外出陪同</li>
+<li>若需用車接送，可提前討論安排</li>
+</ul>
+</div>
+<figure class="editorial-image"><img alt="Felicia Childcare atmosphere image 1" src="images/atmosphere_01.png"/></figure>
+</section>
+<section class="about-editorial-row care-row reverse">
+<figure class="editorial-image"><img alt="Felicia Childcare atmosphere image 2" src="images/atmosphere_02.png"/></figure>
+<div class="editorial-copy">
+<span class="section-index">02</span>
+<h3>關於我</h3>
+<ul>
+<li>政治大學國貿系、廣告系雙主修</li>
+<li>中文、英文與台語皆可溝通</li>
+<li>曾任資訊服務業專案經理，擅長溝通協調、有耐心且細心、應變能力快</li>
+<li>目前已完成托育人員專業訓練課程，並持續準備托育人員相關證照</li>
+</ul>
+</div>
+</section>
+<section class="about-editorial-row details-row">
+<div class="editorial-copy details-copy">
+<span class="section-index">03</span>
+<h3>Details</h3>
+<div class="detail-block">
+<h4>目前收費</h4>
+<p class="price-emphasis"><strong>$350 / hr</strong></p>
+<ul>
+<li>3 小時 $1,000，4 小時 $1,300</li>
+<li>一天最多 12 小時 $4,000</li>
+<li>實際費用會依時長、地點與需求內容討論確認</li>
+</ul>
+<p class="price-note">取得托育人員相關證照後，預計調整為 $400 / hr。<br/>既有家庭的收費方式不變。</p>
+</div><div class="detail-block outings-block">
+<h4>外出活動</h4>
+<p>若家長希望安排親子館、親子樂園、兒童遊戲空間或公園等外出活動，可提前討論。若場地需收費，孩童與 Felicia 的入場費、會員費或相關費用，皆由家長負擔。</p>
+</div>
+<div class="detail-block">
+<h4>交通接送</h4>
+<p>若有用車接送需求，可由我自備車輛；兒童安全座椅需由家長提供。</p>
+<p>實際安排會依地點、時長與當日行程討論確認，並酌收車馬費或停車費。</p>
+</div>
+<div class="detail-block">
+<h4>其他</h4>
+<ul>
+<li>不抽菸</li>
+<li>陪伴期間不使用 3C 讓孩子觀看</li>
+<li>顧及家庭隱私，到宅陪伴期間不主動拍照；外出時會視孩子狀況，偶爾拍照回傳讓家長放心。若希望收到較多照片，也歡迎提前告知</li>
+<li>若孩子有特殊需求、生活習慣或照顧方式，都可以提前討論</li>
+</ul>
+</div>
+<div class="detail-block principles-detail">
+<h4>服務原則</h4>
+<div class="principle-list">
+<p><strong>安全第一</strong><br/>以孩子的安全與基本需求為優先</p>
+<p><strong>溫和陪伴</strong><br/>尊重孩子的節奏、情緒與熟悉感</p>
+<p><strong>清楚溝通</strong><br/>與家長保持開放、可信任的溝通</p>
+</div>
+</div>
+</div>
+<div class="details-side">
+<figure class="editorial-image"><img alt="Felicia Childcare atmosphere image 3" src="images/atmosphere_03.png"/></figure>
+<section aria-label="常見問題 / FAQ" class="about-faq">
+<span class="section-index">04</span>
+<h4>FAQ</h4>
+<div class="about-faq-list">
+<article class="about-faq-item"><h5>需要家長提前準備什麼？</h5><p>依孩子年齡或需求，請準備可能需要的物品，例如尿布、濕紙巾、奶瓶、水、食物、替換衣物、安撫物或外出用品。若有特殊作息、過敏、用藥或照顧方式，也請提前告知。</p></article>
+<article class="about-faq-item"><h5>可以照顧幾歲的小孩？</h5><p>以兩個月以上的嬰幼兒與 2–6 歲兒童的短時段陪伴與臨托為主。若孩子年齡較小、較大，可先私訊討論是否適合安排。</p></article>
+</div>
+</section>
+</div>
+</section>
+</div>
+</div>
+<div class="resume-version" id="resume-en">
+<div class="about-keynotes">
+<span>Care available in Mandarin, English, and Taiwanese</span>
+<span>Calm, responsive care that follows each child's pace</span>
+<span>Flexible support for parents who need time to work, rest, or step away</span>
+</div>
+<div class="editorial-about">
+<section class="about-editorial-row service-row">
+<div class="editorial-copy">
+<span class="section-index">01</span>
+<h3>Service</h3>
+<ul>
+<li>Occasional in-home childcare and play-based care in Kaohsiung, ideally near Sanduo Shopping District Station, within about two MRT stops or a 10-minute ride</li>
+<li>Minimum inquiry duration: 2 hours. Please refer to Availability for current available dates and times</li>
+<li>Experience caring for infants, toddlers, and children around ages 2–6</li>
+<li>Care may include play, storytime, meals or snacks — food should be provided by the family — soothing, nap support, diaper changes, bathing, walks, and outings</li>
+<li>Pick-up or drop-off by car can be discussed in advance if needed</li>
+</ul>
+</div>
+<figure class="editorial-image"><img alt="Felicia Childcare atmosphere image 1" src="images/atmosphere_01.png"/></figure>
+</section>
+<section class="about-editorial-row care-row reverse">
+<figure class="editorial-image"><img alt="Felicia Childcare atmosphere image 2" src="images/atmosphere_02.png"/></figure>
+<div class="editorial-copy">
+<span class="section-index">02</span>
+<h3>About Me</h3>
+<ul>
+<li>Double majored in International Business and Advertising at National Chengchi University</li>
+<li>Comfortable communicating in Mandarin, English, and Taiwanese</li>
+<li>Former project manager in the information service industry, with strong communication and coordination skills, patience, attention to detail, and the ability to respond quickly</li>
+<li>Completed a 126-hour professional childcare training course and currently preparing for childcare-related certification</li>
+</ul>
+</div>
+</section>
+<section class="about-editorial-row details-row">
+<div class="editorial-copy details-copy">
+<span class="section-index">03</span>
+<h3>Details</h3>
+<div class="detail-block">
+<h4>Pricing</h4>
+<p class="price-emphasis"><strong>$350 / hr</strong></p>
+<ul>
+<li>3 hours: $1,000; 4 hours: $1,300</li>
+<li>Up to 12 hours per day: $4,000</li>
+<li>Final fee will be confirmed based on duration, location, and care needs</li>
+</ul>
+<p class="price-note">After I receive childcare-related certification, the rate is expected to be adjusted to $400 / hr.<br/>Rates for existing families will remain unchanged.</p>
+</div><div class="detail-block outings-block">
+<h4>Outings</h4>
+<p>Outings to parent-child centers, indoor play spaces, children’s play areas, or parks can be discussed in advance. If admission, membership, or other venue-related fees apply, the fees for both the child and Felicia should be covered by the family.</p>
+</div>
+<div class="detail-block">
+<h4>Transportation</h4>
+<p>Pick-up or drop-off by car can be discussed if needed. A child safety seat should be provided by the family.</p>
+<p>Additional transportation or parking fees may apply depending on location, duration, and schedule.</p>
+</div>
+<div class="detail-block">
+<h4>Notes</h4>
+<ul>
+<li>I do not smoke</li>
+<li>I do not provide screen time during care</li>
+<li>To respect family privacy, I do not actively take photos during in-home care. During outings, I may occasionally share photos when appropriate to help families feel reassured. If you would like more photo updates, please let me know in advance</li>
+<li>Special needs, daily routines, and care preferences can be discussed in advance</li>
+</ul>
+</div>
+<div class="detail-block principles-detail">
+<h4>Care Principles</h4>
+<div class="principle-list">
+<p><strong>Safety first</strong><br/>Prioritizing each child's safety and essential needs</p>
+<p><strong>Gentle companionship</strong><br/>Respecting each child's rhythm, emotions, and sense of comfort</p>
+<p><strong>Clear communication</strong><br/>Keeping communication open, clear, and trustworthy with families</p>
+</div>
+</div>
+</div>
+<div class="details-side">
+<figure class="editorial-image"><img alt="Felicia Childcare atmosphere image 3" src="images/atmosphere_03.png"/></figure>
+<section aria-label="FAQ" class="about-faq">
+<span class="section-index">04</span>
+<h4>FAQ</h4>
+<div class="about-faq-list">
+<article class="about-faq-item"><h5>What should families prepare in advance?</h5><p>Please prepare any items your child may need based on their age and needs, such as diapers, wipes, bottles, water, food, extra clothes, comfort items, or outing essentials. Please also share any routines, allergies, medication needs, or care preferences in advance.</p></article>
+<article class="about-faq-item"><h5>What ages do you care for?</h5><p>The service mainly focuses on short-term care and companionship for infants over two months old and children around ages 2–6. If your child is younger or older, please message Felicia first to discuss whether the arrangement would be suitable.</p></article>
+</div>
+</section>
+</div>
+</section>
+</div>
+</div>
+</div>
+</section>
+<section class="page active" id="availability">
+<header class="hero availability-hero">
+<h1 class="date-range availability-range-title" id="rangeLabel">--</h1>
+</header>
+<div class="availability-note bilingual-copy">
+<p>
+            本頁顯示未來一個月的可詢問時段，<br/>
+            請點選日期並選取您的需求時間。<br/>
             實際安排以 Felicia 私訊確認為準。
           </p>
-          <p class="en-copy">
-            Available times for the upcoming month are shown below.<br />
-            Please select a date and choose your preferred time.<br />
+<p class="en-copy">
+            Available times for the upcoming month are shown below.<br/>
+            Please select a date and choose your preferred time.<br/>
             Final arrangements will be confirmed with Felicia by message.
           </p>
-        </div>
-
-        <div id="state" class="state">正在載入可詢問時段…<br />Loading availability…</div>
-        <div class="mobile-calendar-note"><span>電腦版可以月曆模式查看</span><span class="en-copy">Calendar layout is available on desktop.</span></div>
-        <div id="calendarWrap" class="calendar-wrap" hidden>
-          <div id="calendar" class="calendar"></div>
-        </div>
-
-        <footer class="meta">
-          <div class="sync" id="lastSynced">資料讀取時間：--</div>
-          <div class="notice bilingual-copy">
-            <p>
-              最晚須於預約日前一天 22:00 前確認，<br />
+</div>
+<div class="state" id="state">正在載入可詢問時段…<br/>Loading availability…</div>
+<div class="mobile-calendar-note"><span>電腦版可以月曆模式查看</span><span class="en-copy">Calendar layout is available on desktop.</span></div>
+<div class="calendar-wrap" hidden="" id="calendarWrap">
+<div class="calendar" id="calendar"></div>
+</div>
+<footer class="meta">
+<div class="sync" id="lastSynced">資料讀取時間：--</div>
+<div class="notice bilingual-copy">
+<p>
+              最晚須於預約日前一天 22:00 前確認，<br/>
               臨時取消亦同。
             </p>
-            <p class="en-copy">Please confirm your booking by 22:00 on the day before the service date. The same deadline applies to cancellations.</p>
-          </div>
-        </footer>
-
-
-        <section class="usage-guide" aria-label="使用說明 / How to use">
-          <div class="usage-guide-heading">
-            <h3>使用說明</h3>
-            <p class="en-copy">How to use</p>
-          </div>
-
-          <details class="usage-item">
-            <summary>可以一天選兩個分開時段嗎？ / Can I select two separate time slots on the same day?</summary>
-            <div class="usage-answer bilingual-copy">
-              <p>可以。同一天可選擇多個時段；每個時段至少 2 小時，且同一天的兩個詢問時段之間需至少間隔 2 小時。例如：11:00–14:00 與 17:00–21:00 可以一起加入詢問。</p>
-              <p class="en-copy">Yes. You may select multiple time slots on the same day. Each slot must be at least 2 hours, and separate slots on the same day must be at least 2 hours apart. For example, 11:00–14:00 and 17:00–21:00 can be added to the same inquiry.</p>
-            </div>
-          </details>
-
-          <details class="usage-item">
-            <summary>選好時段後，如何用 LINE 詢問？ / How do I send my inquiry via LINE?</summary>
-            <div class="usage-answer bilingual-copy">
-              <p>選好需求時間後，請點選「加入詢問」。系統會開啟「已選詢問時段」視窗，確認無誤後點選「複製後用 LINE 詢問」，即可將詢問內容貼到 LINE 傳送給 Felicia。</p>
-              <p class="en-copy">After choosing your preferred time, tap “Add to inquiry.” The selected time slots window will open. Once everything looks correct, tap “Copy &amp; Ask via LINE” to paste and send your inquiry to Felicia.</p>
-            </div>
-          </details>
-        </section>
-
-        <div id="floatingBasket" class="floating-basket">
-          <div class="basket-count" id="basketCount"><span class="basket-count-zh">已選 0 個時段</span><span class="basket-count-en">0 slots selected</span></div>
-          <div class="basket-actions">
-            <button type="button" class="secondary-btn" id="reviewBasketBtn"><span class="btn-zh">查看 / 修改</span><span class="btn-gap"> </span><span class="btn-en">Review / Edit</span></button>
-            <button type="button" class="primary-btn" id="sendLineBtn"><span class="btn-zh">複製後用 LINE 詢問</span><span class="btn-gap"> </span><span class="btn-en">Copy &amp; Ask via LINE</span></button>
-          </div>
-        </div>
-      </section>
-
-      <section id="gallery" class="page content-page">
-        <div class="section-title gallery-title">
-          <h2>證書與照片</h2>
-          <p>證書、陪伴紀錄與家長回饋。<br />涉及孩子的照片皆已取得同意，並以保護隱私為原則。<br />Certificates, care moments, and parent feedback.<br />Photos involving children are shared with consent and with privacy in mind.</p>
-        </div>
-        <div class="gallery-card editorial-gallery">
-          <section class="gallery-section certificates-section">
-            <div class="gallery-section-heading"><span class="section-index">01</span><div><h3>Certificates</h3><p>托育訓練與相關證明</p></div></div>
-            <div class="certificate-layout">
-              <article class="gallery-item certificate-main"><img src="images/certificate_childcare_redacted.jpg" alt="托育人員專業訓練課程 126 小時結業證書" /><div class="gallery-caption">托育人員專業訓練課程 126 小時結業證書</div></article>
-              <article class="certificate-note"><h4>Upcoming</h4><p>托育人員技術士證照</p><span>取得後更新</span></article>
-            </div>
-          </section>
-          <section class="gallery-section moments-section">
-            <div class="gallery-section-heading"><span class="section-index">02</span><div><h3>Care Moments</h3><p>陪伴紀錄</p></div></div>
-            <div class="moment-layout">
-              <article class="gallery-item moment-large"><img src="images/moment_01.jpg" alt="戶外陪伴與散步紀錄" /><div class="gallery-caption">戶外散步與陪伴時光</div></article>
-              <article class="gallery-item moment-small"><img src="images/moment_02.jpg" alt="親子館陪伴紀錄" /><div class="gallery-caption">親子館互動與陪玩紀錄</div></article>
-              <article class="gallery-item moment-small"><img src="images/moment_03.jpg" alt="陪伴紀錄照片 3" /><div class="gallery-caption">開車接送至戶外公園陪玩</div></article>
-              <article class="gallery-item moment-large"><img src="images/moment_04.jpg" alt="陪伴紀錄照片 4" /><div class="gallery-caption">生活感野餐與共融遊戲場陪伴</div></article>
-            </div>
-          </section>
-          <section class="gallery-section feedback-section">
-            <div class="gallery-section-heading"><span class="section-index">03</span><div><h3>Words from Parents</h3><p>家長回饋</p></div></div>
-            <div class="feedback-layout">
-              <article class="gallery-item feedback-item"><img src="images/feedback_01.jpg" alt="家長回饋截圖 1" /></article>
-              <article class="gallery-item feedback-item"><img src="images/feedback_02.jpg" alt="家長回饋截圖 2" /></article>
-            </div>
-          </section>
-        </div>
-      </section>
-    </section>
-  </main>
-
-  <div id="slotModal" class="modal-backdrop" aria-hidden="true">
-    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="slotModalTitle">
-      <h3 id="slotModalTitle">選擇詢問時段</h3>
-      <p id="slotModalDate">--</p>
-      <p id="slotModalWindow">本日可詢問時段：--</p>
-
-      <div class="field-row">
-        <label>開始時間 / Start time<select id="startSelect"></select></label>
-        <label>結束時間 / End time<select id="endSelect"></select></label>
-      </div>
-
-      <div id="slotWarning" class="warning"></div>
-
-      <div class="modal-note bilingual-rules">
-        <p class="bilingual-rule">・需求時間須落在網站顯示的可選時段內<span class="en">Requested time must fall within the available times shown on the website.</span></p>
-        <p class="bilingual-rule">・每次最短詢問時長為 2 小時<span class="en">The minimum inquiry duration is 2 hours.</span></p>
-        <p class="bilingual-rule">・當天如有緊急需求，請直接聯繫 Felicia<span class="en">For last-minute assistance, please contact Felicia directly.</span></p>
-      </div>
-
-      <div class="modal-actions">
-        <button type="button" class="secondary-btn" id="cancelSlotBtn"><span class="btn-zh">取消</span><span class="btn-gap"> </span><span class="btn-en">Cancel</span></button>
-        <button type="button" class="primary-btn" id="addSlotBtn"><span class="btn-zh">加入詢問</span><span class="btn-gap"> </span><span class="btn-en">Add to inquiry</span></button>
-      </div>
-    </div>
-  </div>
-
-  <div id="basketModal" class="modal-backdrop" aria-hidden="true">
-    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="basketModalTitle">
-      <h3 id="basketModalTitle">已選詢問時段<br /><span class="modal-title-en">Selected time slots</span></h3>
-      <div id="selectedList" class="selected-list"></div>
-      <div class="modal-actions">
-        <button type="button" class="secondary-btn" id="clearBasketBtn"><span class="btn-zh">全部清除</span><span class="btn-gap"> </span><span class="btn-en">Clear all</span></button>
-        <button type="button" class="secondary-btn" id="closeBasketBtn"><span class="btn-zh">繼續查看</span><span class="btn-gap"> </span><span class="btn-en">Continue browsing</span></button>
-        <button type="button" class="primary-btn" id="sendLineBtnModal"><span class="btn-zh">複製後用 LINE 詢問</span><span class="btn-gap"> </span><span class="btn-en">Copy &amp; Ask via LINE</span></button>
-      </div>
-    </div>
-  </div>
-
-  <div id="toast" class="toast" role="status" aria-live="polite"></div>
-
-  <script>
+<p class="en-copy">Please confirm your booking by 22:00 on the day before the service date. The same deadline applies to cancellations.</p>
+</div>
+</footer>
+<section aria-label="使用說明 / How to use" class="usage-guide">
+<div class="usage-guide-heading">
+<h3>使用說明</h3>
+<p class="en-copy">How to use</p>
+</div>
+<details class="usage-item">
+<summary>可以一天選兩個分開時段嗎？ / Can I select two separate time slots on the same day?</summary>
+<div class="usage-answer bilingual-copy">
+<p>可以。同一天可選擇多個時段；每個時段至少 2 小時，且同一天的兩個詢問時段之間需至少間隔 2 小時。例如：11:00–14:00 與 17:00–21:00 可以一起加入詢問。</p>
+<p class="en-copy">Yes. You may select multiple time slots on the same day. Each slot must be at least 2 hours, and separate slots on the same day must be at least 2 hours apart. For example, 11:00–14:00 and 17:00–21:00 can be added to the same inquiry.</p>
+</div>
+</details>
+<details class="usage-item">
+<summary>選好時段後，如何用 LINE 詢問？ / How do I send my inquiry via LINE?</summary>
+<div class="usage-answer bilingual-copy">
+<p>選好需求時間後，請點選「加入詢問」。系統會開啟「已選詢問時段」視窗，確認無誤後點選「複製後用 LINE 詢問」，即可將詢問內容貼到 LINE 傳送給 Felicia。</p>
+<p class="en-copy">After choosing your preferred time, tap “Add to inquiry.” The selected time slots window will open. Once everything looks correct, tap “Copy &amp; Ask via LINE” to paste and send your inquiry to Felicia.</p>
+</div>
+</details>
+<details class="usage-item">
+<summary>部分日期顯示「× 台北 Taipei」是什麼意思？ / What does “× Taipei” mean on some dates?</summary>
+<div class="usage-answer bilingual-copy">
+<p>這代表 Felicia 該日期在台北，若您剛好有台北的臨托或陪伴需求，可直接私訊詢問是否能安排。台北可預約時段通常為 9:00–19:00，每次最少 2 小時。</p>
+<p class="en-copy">This means Felicia is in Taipei on that date. If you happen to need childcare or companionship support in Taipei, please message Felicia directly to ask whether an arrangement may be possible. Taipei availability is usually 9:00–19:00, with a 2-hour minimum per inquiry.</p>
+</div>
+</details></section>
+<div class="floating-basket" id="floatingBasket">
+<div class="basket-count" id="basketCount"><span class="basket-count-zh">已選 0 個時段</span><span class="basket-count-en">0 slots selected</span></div>
+<div class="basket-actions">
+<button class="secondary-btn" id="reviewBasketBtn" type="button"><span class="btn-zh">查看 / 修改</span><span class="btn-gap"> </span><span class="btn-en">Review / Edit</span></button>
+<button class="primary-btn" id="sendLineBtn" type="button"><span class="btn-zh">複製後用 LINE 詢問</span><span class="btn-gap"> </span><span class="btn-en">Copy &amp; Ask via LINE</span></button>
+</div>
+</div>
+</section>
+<section class="page content-page" id="gallery">
+<div class="section-title gallery-title">
+<h2>證書與照片</h2>
+<p>證書、陪伴紀錄與家長回饋。<br/>涉及孩子的照片皆已取得同意，並以保護隱私為原則。<br/>Certificates, care moments, and parent feedback.<br/>Photos involving children are shared with consent and with privacy in mind.</p>
+</div>
+<div class="gallery-card editorial-gallery">
+<section class="gallery-section certificates-section">
+<div class="gallery-section-heading"><span class="section-index">01</span><div><h3>Certificates</h3><p>托育訓練與相關證明</p></div></div>
+<div class="certificate-layout"><article class="gallery-item certificate-main certificate-primary"><img alt="托育人員專業訓練課程 126 小時結業證書" src="images/certificate_childcare_redacted.jpg"/><div class="gallery-caption">托育人員專業訓練課程 126 小時結業證書</div></article><article class="gallery-item certificate-main certificate-secondary"><img alt="良民證 / Police Criminal Record Certificate" src="images/certificate_police_clearance_redacted.jpg"/><div class="gallery-caption">良民證 / Police Criminal Record Certificate</div></article><article class="certificate-note"><h4>Upcoming</h4><p>托育人員技術士證照</p><span>取得後更新</span></article></div>
+</section>
+<section class="gallery-section moments-section">
+<div class="gallery-section-heading"><span class="section-index">02</span><div><h3>Care Moments</h3><p>陪伴紀錄</p></div></div>
+<div class="moment-layout">
+<article class="gallery-item moment-large"><img alt="戶外陪伴與散步紀錄" src="images/moment_01.jpg"/><div class="gallery-caption">戶外散步與陪伴時光</div></article>
+<article class="gallery-item moment-small"><img alt="親子館陪伴紀錄" src="images/moment_02.jpg"/><div class="gallery-caption">親子館互動與陪玩紀錄</div></article>
+<article class="gallery-item moment-small"><img alt="陪伴紀錄照片 3" src="images/moment_03.jpg"/><div class="gallery-caption">開車接送至戶外公園陪玩</div></article>
+<article class="gallery-item moment-large"><img alt="陪伴紀錄照片 4" src="images/moment_04.jpg"/><div class="gallery-caption">生活感野餐與共融遊戲場陪伴</div></article>
+</div>
+</section>
+<section class="gallery-section feedback-section">
+<div class="gallery-section-heading"><span class="section-index">03</span><div><h3>Words from Parents</h3><p>家長回饋</p></div></div>
+<div class="feedback-layout">
+<article class="gallery-item feedback-item"><img alt="家長回饋截圖 1" src="images/feedback_01.jpg"/></article>
+<article class="gallery-item feedback-item"><img alt="家長回饋截圖 2" src="images/feedback_02.jpg"/></article>
+</div>
+</section>
+</div>
+</section>
+</section>
+</main>
+<div aria-hidden="true" class="modal-backdrop" id="slotModal">
+<div aria-labelledby="slotModalTitle" aria-modal="true" class="modal" role="dialog">
+<h3 id="slotModalTitle">選擇詢問時段</h3>
+<p id="slotModalDate">--</p>
+<p id="slotModalWindow">本日可詢問時段：--</p>
+<div class="field-row">
+<label>開始時間 / Start time<select id="startSelect"></select></label>
+<label>結束時間 / End time<select id="endSelect"></select></label>
+</div>
+<div class="warning" id="slotWarning"></div>
+<div class="modal-note bilingual-rules">
+<p class="bilingual-rule">・需求時間須落在網站顯示的可選時段內<span class="en">Requested time must fall within the available times shown on the website.</span></p>
+<p class="bilingual-rule">・每次最短詢問時長為 2 小時<span class="en">The minimum inquiry duration is 2 hours.</span></p>
+<p class="bilingual-rule">・當天如有緊急需求，請直接聯繫 Felicia<span class="en">For last-minute assistance, please contact Felicia directly.</span></p>
+</div>
+<div class="modal-actions">
+<button class="secondary-btn" id="cancelSlotBtn" type="button"><span class="btn-zh">取消</span><span class="btn-gap"> </span><span class="btn-en">Cancel</span></button>
+<button class="primary-btn" id="addSlotBtn" type="button"><span class="btn-zh">加入詢問</span><span class="btn-gap"> </span><span class="btn-en">Add to inquiry</span></button>
+</div>
+</div>
+</div>
+<div aria-hidden="true" class="modal-backdrop" id="basketModal">
+<div aria-labelledby="basketModalTitle" aria-modal="true" class="modal" role="dialog">
+<h3 id="basketModalTitle">已選詢問時段<br/><span class="modal-title-en">Selected time slots</span></h3>
+<div class="selected-list" id="selectedList"></div>
+<div class="modal-actions">
+<button class="secondary-btn" id="clearBasketBtn" type="button"><span class="btn-zh">全部清除</span><span class="btn-gap"> </span><span class="btn-en">Clear all</span></button>
+<button class="secondary-btn" id="closeBasketBtn" type="button"><span class="btn-zh">繼續查看</span><span class="btn-gap"> </span><span class="btn-en">Continue browsing</span></button>
+<button class="primary-btn" id="sendLineBtnModal" type="button"><span class="btn-zh">複製後用 LINE 詢問</span><span class="btn-gap"> </span><span class="btn-en">Copy &amp; Ask via LINE</span></button>
+</div>
+</div>
+</div>
+<div aria-live="polite" class="toast" id="toast" role="status"></div>
+<script>
     const API_URL = "https://script.google.com/macros/s/AKfycby4jXsRhGbM3zq1rLRvc6EPhLvvUHbnL5ASx4ZEpI1FjnJPTQsJoiM2bGO1TGTv0OQa/exec";
     const LINE_URL = "https://line.me/ti/p/Qo5p54Zsqn";
     const WEEKDAYS = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
@@ -2099,6 +2217,15 @@
 
     function normalizeStatus(status) { return String(status || "").trim().toLowerCase(); }
     function normalizeTimeText(startTime, endTime) { return (!startTime || !endTime) ? "" : `${String(startTime).trim()}–${String(endTime).trim()}`; }
+    function getRowNote(row) { return String(row?.note || row?.Note || row?.notes || "").trim(); }
+    function normalizeDisplayNote(noteText) {
+      const text = String(noteText || "").trim().replace(/\s+/g, " ");
+      return text === "台北 Taipei" ? "台北 Taipei" : "";
+    }
+    function getDateNote(rows) {
+      const notes = rows.map(getRowNote).map(normalizeDisplayNote).filter(Boolean);
+      return [...new Set(notes)][0] || "";
+    }
     function parseTimeToMinutes(timeText) { const [hour, minute] = String(timeText).trim().split(":").map(Number); return hour * 60 + (minute || 0); }
     function minutesToTime(minutes) { const hour = Math.floor(minutes / 60); const minute = String(minutes % 60).padStart(2, "0"); return `${hour}:${minute}`; }
 
@@ -2427,6 +2554,7 @@
 
         const slots = createElement("div", "slots");
         const availableRows = rows.filter(row => normalizeStatus(row.status) === "available").sort((a, b) => parseTimeToMinutes(a.startTime || "0:00") - parseTimeToMinutes(b.startTime || "0:00"));
+        const dateNote = getDateNote(rows);
 
         if (availableRows.length > 0) {
           availableRows.forEach(row => {
@@ -2449,7 +2577,10 @@
             slots.appendChild(slotRow);
           });
         } else if (rows.some(row => ["full", "unavailable"].includes(normalizeStatus(row.status)))) {
-          slots.appendChild(createElement("div", "no-availability", "×"));
+          const unavailableState = createElement("div", "unavailable-state");
+          unavailableState.appendChild(createElement("div", "no-availability", "×"));
+          if (dateNote) unavailableState.appendChild(createElement("div", "availability-day-note", dateNote));
+          slots.appendChild(unavailableState);
         }
 
         dayCell.appendChild(slots);
